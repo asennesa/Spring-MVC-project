@@ -1,5 +1,6 @@
 package com.streamit.streamitdemo.model.entity;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.Set;
 public class Show {
     private Long id;
     private LocalDateTime date;
-    private String venueAdress;
+    private String venueAddress;
     private Set<Artist> artists;
 
     public Show() {
@@ -41,12 +42,13 @@ public class Show {
     }
 
     @Column(name = "venue_adress", nullable = false)
-    public String getVenueAdress() {
-        return venueAdress;
+    @Length(min=6,message = "Venue address length must be at least six characters")
+    public String getVenueAddress() {
+        return venueAddress;
     }
 
-    public void setVenueAdress(String venueAdress) {
-        this.venueAdress = venueAdress;
+    public void setVenueAddress(String venueAdress) {
+        this.venueAddress = venueAdress;
     }
 
     @ManyToMany

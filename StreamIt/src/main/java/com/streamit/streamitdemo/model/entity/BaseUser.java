@@ -1,8 +1,11 @@
 
 package com.streamit.streamitdemo.model.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
@@ -34,7 +37,7 @@ public abstract class BaseUser {
         this.id = id;
     }
 
-    @Email
+    @Email(message = "Enter valid email address!")
     @Column(name = "email", nullable = false, unique = true)
     public String getEmail() {
         return email;
@@ -45,6 +48,7 @@ public abstract class BaseUser {
     }
 
     @Column(name = "password", nullable = false)
+    @Length(min=6,message = "Password length must be at least six characters")
     public String getPassword() {
         return password;
     }
@@ -55,6 +59,7 @@ public abstract class BaseUser {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
+    @NotNull
     public Role getRole() {
         return role;
     }
@@ -74,6 +79,7 @@ public abstract class BaseUser {
     }
 
     @Column(name = "display_name", nullable = false)
+    @Length(min=2,message = "Display name length must be at least two characters")
     public String getDisplayName() {
         return displayName;
     }

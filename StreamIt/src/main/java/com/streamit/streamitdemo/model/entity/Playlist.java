@@ -1,5 +1,7 @@
 package com.streamit.streamitdemo.model.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -27,6 +29,7 @@ public class Playlist {
     }
 
     @Column(name = "name", nullable = false)
+    @Length(min=2,message = "Name length must be at least two characters")
     public String getName() {
         return name;
     }
@@ -44,7 +47,7 @@ public class Playlist {
         this.songs = songs;
     }
 
-    @ManyToOne()
+    @ManyToOne
     public BaseUser getBaseUser() {
         return baseUser;
     }

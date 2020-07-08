@@ -1,5 +1,6 @@
 package com.streamit.streamitdemo.model.entity;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class Song {
 
 
     @Column(name = "name", nullable = false)
+    @Length(min=2,message = "Song name length must be at least 2 characters")
     public String getName() {
         return name;
     }
@@ -43,6 +45,7 @@ public class Song {
     }
 
     @Column(name = "genre")
+    @Length(min=2,message = "Genre length must be at least 2 characters")
     public String getGenre() {
         return genre;
     }
