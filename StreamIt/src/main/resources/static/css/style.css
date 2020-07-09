@@ -64,7 +64,16 @@ nav > p {
     /*border-radius: 10px;*/
     width:30%;
 }
-
+#playlist{
+    list-style: none;
+}
+#playlist li a{
+    color:white;
+    text-decoration: none;
+}
+#playlist .current-song a{
+    color:#F9690E;
+}
 
 body {
     background-image: url(/img/background.jpg);

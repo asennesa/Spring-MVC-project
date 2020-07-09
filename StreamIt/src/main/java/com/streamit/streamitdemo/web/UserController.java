@@ -39,6 +39,11 @@ public class UserController {
         return "register-fan";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
 //    @PostMapping("/register")
 //    public String registerPost(@Valid @ModelAttribute("userRegisterBindingModel")
 //                                       Ar userRegisterBindingModel,

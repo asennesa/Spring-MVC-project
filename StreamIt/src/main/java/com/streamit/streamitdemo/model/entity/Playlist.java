@@ -10,6 +10,7 @@ import java.util.Set;
 public class Playlist {
     private Long id;
     private String name;
+    private String description;
     private Set<Song> songs;
     private BaseUser baseUser;
 
@@ -29,7 +30,7 @@ public class Playlist {
     }
 
     @Column(name = "name", nullable = false)
-    @Length(min=2,message = "Name length must be at least two characters")
+    @Length(min = 2, message = "Name length must be at least two characters")
     public String getName() {
         return name;
     }
@@ -54,5 +55,14 @@ public class Playlist {
 
     public void setBaseUser(BaseUser baseUser) {
         this.baseUser = baseUser;
+    }
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
