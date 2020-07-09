@@ -44,13 +44,27 @@ nav > p {
 
 }
 
-body#index {
-    background-image: url(/img/MALE-SHIRT.jpg);
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
-    margin-bottom: 5rem;
+/*body#index {*/
+/*    background-image: url(/img/MALE-SHIRT.jpg);*/
+/*    background-position: center;*/
+/*    background-attachment: fixed;*/
+/*    background-size: cover;*/
+/*    margin-bottom: 5rem;*/
+/*}*/
+
+.btn-xl {
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    width:30%;
 }
+.badge-xl{
+    padding: 10px 20px;
+    /*font-size: 20px;*/
+    /*border-radius: 10px;*/
+    width:30%;
+}
+
 
 body {
     background-image: url(/img/background.jpg);

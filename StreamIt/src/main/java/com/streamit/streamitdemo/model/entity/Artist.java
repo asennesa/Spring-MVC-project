@@ -1,5 +1,7 @@
 package com.streamit.streamitdemo.model.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.sql.Blob;
@@ -12,6 +14,7 @@ public class Artist extends BaseUser {
     private Set<Song> songs;
     private Set<Show> shows;
     private Set<Fan> followers;
+    private String musicLabels;
 
 
     public Artist() {
@@ -43,5 +46,14 @@ public class Artist extends BaseUser {
 
     public void setFollowers(Set<Fan> followers) {
         this.followers = followers;
+    }
+    @Column(name = "music_labels")
+    @Length(min=2,message = "Label name length must be at least two characters")
+    public String getMusicLabels() {
+        return musicLabels;
+    }
+
+    public void setMusicLabels(String musicLabels) {
+        this.musicLabels = musicLabels;
     }
 }

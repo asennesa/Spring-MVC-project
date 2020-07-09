@@ -8,22 +8,28 @@
     </button>
     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
         <ul class="navbar-nav row">
-            <th:block th:if="${session.isEmpty()}">
-                <li class="nav-item col-md-4">
-                    <a class="nav-link orange-text active h5" href="/users/login">Login</a>
-                </li>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link orange-text active h5" href="/users/register">Register</a>
-                </li>
-            </th:block>
-            <th:block  th:unless="${session.isEmpty()}">
-                <li class="col-md-4">
-                    <a class="nav-link text-white active h6" href="/items/add">Add Item</a>
-                </li>
-                <li class="col-md-4">
-                    <a class="nav-link text-white active h6" href="/users/logout">Logout</a>
-                </li>
-            </th:block>
+            <!--            <th:block th:if="${session.isEmpty()}">-->
+            <li class="nav-item col-md-4">
+                <a class="nav-link orange-text active h5" href="/users/login">Login</a>
+            </li>
+            <li class="nav-item col-md-4">
+                <a class="nav-link orange-text active h5" href="/users/register">Register</a>
+            </li>
+            <!--            </th:block>-->
+            <!--            <th:block  th:unless="${session.isEmpty()}">-->
+            <li class="col-md-4">
+                <a class="nav-link orange-text active h6" href="/songs/upload">Upload</a>
+            </li>
+            <li class="col-md-4">
+                <a class="nav-link orange-text active h6" href="/shows/addShow">Add Show</a>
+            </li>
+            <li class="col-md-4">
+                <a class="nav-link orange-text active h6" href="/playlists/createPlaylist">Create Playlist</a>
+            </li>
+            <li class="col-md-4">
+                <a class="nav-link orange-text active h6" href="/users/logout">Logout</a>
+            </li>
+            <!--            </th:block>-->
         </ul>
     </div>
 </th:block>

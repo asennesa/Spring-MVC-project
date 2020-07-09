@@ -29,6 +29,16 @@ public class UserController {
         return "registration-type-choice";
     }
 
+    @GetMapping("/register/artist")
+    public String registerArtist() {
+        return "register-artist";
+    }
+
+    @GetMapping("/register/fan")
+    public String registerFan() {
+        return "register-fan";
+    }
+
 //    @PostMapping("/register")
 //    public String registerPost(@Valid @ModelAttribute("userRegisterBindingModel")
 //                                       Ar userRegisterBindingModel,

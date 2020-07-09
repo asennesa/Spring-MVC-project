@@ -7,36 +7,26 @@
 <div class="bg"></div>
 <header>
      <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
-        <a class="nav-link text-white active h5" href="/">StreamIt</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-            <ul class="navbar-nav row">
+         <th:block th:include="~{/fragments/nav}"></th:block>
 
-                <li class="nav-item col-md-4">
-                    <a class="nav-link text-white active h6" href="/">Login</a>
-                </li>
-                <li class="nav-item col-md-4">
-                    <a class="nav-link text-white active h6" href="/" >Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+     </nav>
 </header>
 <main>
-    <div class="container bg-gray p-3 rounded  text-center mt-8">
-        <h1>StreamIt!</h1>
-        <hr class="my-3"/>
-        <p class="h5">Welcome friend! Be it you are an artist or melophile you stumbled on the greatest streaming platform in our realm!</p>
-        <hr class="my-3"/>
-        <h3>
-            <a class="text-primay" href="/">Login</a>
-            if you have an account or
-            <a class="text-primay" href="/users/register">Register</a>
-            now and check our deals.
-        </h3>
+    <h1 class="text-center mt-5  "><span class="badge-xl badge-pill badge-secondary p-3 font-weight-bold font-italic">Listen, share, connect.</span></h1>
+    <div class="text-center ">
+        <a href="/users/register" class="btn btn-warning btn-xl p-4 m-3 rounded-bottom rounded-top border font-weight-bold" >Sign up for free</a>
+    </div>
+    <div class="container-fluid">
+        <div class="offers row mx-auto d-flex flex-row justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Artist name</h5>
+                    <p class="card-text">followers count</p>
+                    <a href="#" class="btn btn-primary">Listen now.</a>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer class="footer bg-dark  py-2">
