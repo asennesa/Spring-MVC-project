@@ -8,13 +8,16 @@ import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Table
-@Entity(name = "shows")
+
+@Entity
+@Table(name = "shows")
 public class Show {
     private Long id;
+    private String showName;
     private LocalDateTime date;
     private String venueAddress;
-    private Set<Artist> artists;
+    private Set<User> users;
+
 
     public Show() {
     }
@@ -30,6 +33,15 @@ public class Show {
         this.id = id;
     }
 
+    @Column(name = "show_name", nullable = false)
+    @Length(min = 2, message = "Show name length must be at least 2 characters")
+    public String getShowName() {
+        return showName;
+    }
+
+    public void setShowName(String showName) {
+        this.showName = showName;
+    }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @FutureOrPresent(message = "The date cannot be in the past!")
@@ -42,7 +54,7 @@ public class Show {
     }
 
     @Column(name = "venue_adress", nullable = false)
-    @Length(min=6,message = "Venue address length must be at least six characters")
+    @Length(min = 6, message = "Venue address length must be at least six characters")
     public String getVenueAddress() {
         return venueAddress;
     }
@@ -52,12 +64,12 @@ public class Show {
     }
 
     @ManyToMany
-    public Set<Artist> getArtists() {
-        return artists;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setArtists(Set<Artist> artists) {
-        this.artists = artists;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
 }

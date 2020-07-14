@@ -5,47 +5,39 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-        <th:block th:include="~{/fragments/head}"></th:block>
-	</nav>
+    <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
+        <th:block th:include="~{/fragments/nav}"></th:block>
+    </nav>
+
 </header>
 <main>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Upload song</span></h1>
+    <h1 class="text-center mt-2"><span class="badge badge-warning ">Upload song</span></h1>
     <hr class="hr-3"/>
-    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" action="/" method="">
+    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" action="/" method="" enctype="multipart/form-data">
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
-                <label for="name" class="h4 mb-2">Name</label>
+                <label for="name" class="h4 mb-2">Song name</label>
             </div>
             <input type="text" class="form-control" id="name" name="name" />
             <small class="text-danger">Incorrect name!</small>
         </div>
-        <div class="form-group">
-            <div class="text-white label-holder d-flex justify-content-center">
-                <label for="description" class="h4 mb-2">Label</label>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="custom-file">
+                    <input type="file" id="songFile" name="songFile" class="custom-file-input" value="">
+                    <label class="custom-file-label" for="songFile">Choose mp3 file</label>
+                    <small class="text-danger">Incorrect file type,only mp3 allowed.</small>
+                </div>
             </div>
-            <input type="text" class="form-control" id="description" name="description"/>
-            <small class="text-danger">Incorrect description</small>
         </div>
-        <div class="form-group">
-            <div class="text-white label-holder d-flex justify-content-center">
-                <label for="description" class="h4 mb-2">Release Date</label>
-            </div>
-            <input type="text" class="form-control" id="description" name="description"/>
-            <small class="text-danger">Incorrect description</small>
-        </div>
-        <div class="form-group">
-            <div class="text-white label-holder d-flex justify-content-center">
-                <label for="description" class="h4 mb-2"> Upload</label>
-            </div>
-            <input type="text" class="form-control" id="description" name="description"/>
-            <small class="text-danger">Incorrect description</small>
-        </div>
-   
-    
+
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-secondary text-white mb-3">Add Item</button>
+            <button type="submit" class="btn btn-secondary text-white mb-3" value="Register" \>Upload</button>
         </div>
+
+
+
     </form>
 </main>
 <footer class="footer bg-dark  py-2">

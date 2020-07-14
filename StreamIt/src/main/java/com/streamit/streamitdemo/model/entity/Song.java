@@ -17,7 +17,7 @@ public class Song {
     private byte[] songFile;
     private LocalDateTime releaseDate;
     private Set<Playlist> playlists;
-    private Set<Artist> artists;
+    private Set<User> users;
 
     public Song() {
     }
@@ -83,13 +83,12 @@ public class Song {
     public void setPlaylists(Set<Playlist> playlists) {
         this.playlists = playlists;
     }
-
     @ManyToMany
-    public Set<Artist> getArtists() {
-        return artists;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setArtists(Set<Artist> artists) {
-        this.artists = artists;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

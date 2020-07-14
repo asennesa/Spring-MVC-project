@@ -1,4 +1,4 @@
 package com.streamit.streamitdemo.service;
 
-public interface ArtistService {
+public interface UserService {
 }

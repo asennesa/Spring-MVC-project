@@ -1,5 +1,4 @@
-<th:block xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:th="http://www.thymeleaf.org">
+<th:block xmlns:th="http://www.thymeleaf.org">
     <p><i class="fas fa-compact-disc fa-2x"></i></p>
     <a class="nav-link text-white active h4" href="/">StreamIt!</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -8,6 +7,11 @@
     </button>
     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
         <ul class="navbar-nav row">
+            <li class="nav-item col-md-4">
+                <a class="nav-link" href="/home">
+                    <span >Welcome, {username}!</span>
+                </a>
+            </li>
             <!--            <th:block th:if="${session.isEmpty()}">-->
             <li class="nav-item col-md-4">
                 <a class="nav-link orange-text active h5" href="/users/login">Login</a>
@@ -21,7 +25,7 @@
                 <a class="nav-link orange-text active h6" href="/songs/upload">Upload</a>
             </li>
             <li class="col-md-4">
-                <a class="nav-link orange-text active h6" href="/shows/addShow">Add Show</a>
+                <a class="nav-link orange-text active h6" href="/shows/add">Add Show</a>
             </li>
             <li class="col-md-4">
                 <a class="nav-link orange-text active h6" href="/playlists/create">Create Playlist</a>
@@ -31,5 +35,9 @@
             </li>
             <!--            </th:block>-->
         </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </div>
 </th:block>

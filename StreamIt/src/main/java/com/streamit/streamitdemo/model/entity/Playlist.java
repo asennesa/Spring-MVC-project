@@ -12,7 +12,7 @@ public class Playlist {
     private String name;
     private String description;
     private Set<Song> songs;
-    private BaseUser baseUser;
+    private User user;
 
 
     public Playlist() {
@@ -49,12 +49,12 @@ public class Playlist {
     }
 
     @ManyToOne
-    public BaseUser getBaseUser() {
-        return baseUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setBaseUser(BaseUser baseUser) {
-        this.baseUser = baseUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Column(name = "description", columnDefinition = "TEXT")

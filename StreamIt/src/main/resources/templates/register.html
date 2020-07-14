@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-        <th:block th:include="~{/fragments/head}"></th:block>
-    </head>
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+
 <body>
 <header>
-      <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
-          <th:block th:include="~{/fragments/nav}"></th:block>
-
-      </nav>
+    <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
+        <th:block th:include="~{/fragments/nav}"></th:block>
+    </nav>
 </header>
 <main>
-    <h1 class="text-center mt-2"><span class="badge badge-warning ">Artist</span></h1>
+    <h1 class="text-center mt-2"><span class="badge badge-warning ">Fan</span></h1>
     <hr class="hr-3"/>
     <form class="mx-auto mb-5 text-center w-25 bg-dark p-3 rounded" action="/" method="">
         <div class="form-group">
             <div class="label-holder textCol d-flex justify-content-center">
-                <label for="username" class="h4 mb-2 text-white">Display name</label>
+                <label for="username" class="h4 mb-2 text-white">Username</label>
             </div>
             <input type="text" class="form-control" id="username" name="username"/>
             <small class="text-danger">Incorrect username!</small>
@@ -33,7 +33,7 @@
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="password" class="h4 mb-2">Password</label>
             </div>
-            <input type="password" class="form-control" id="password" name="password" />
+            <input type="password" class="form-control" id="password" name="password"/>
             <small class="text-danger">Incorrect password!</small>
         </div>
         <div class="form-group">
@@ -41,24 +41,15 @@
                 <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
             </div>
             <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
-  
         </div>
-        <div class="form-group">
-            <div class="label-holder textCol d-flex justify-content-center">
-                <label for="musicLabels" class="h4 mb-2 text-white">Music label(s)</label>
-            </div>
-            <input type="text" class="form-control" id="musicLabels" name="musicLabels"/>
-            <small class="text-danger">Incorrect label name!</small>
-        </div>
-      
+
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-secondary text-white mb-3" value="Register">Register</button>
+            <button type="submit" class="btn btn-secondary text-white mb-3" value="Register" \>Register</button>
         </div>
     </form>
 </main>
-	<footer class="footer bg-dark  py-2">
-        <th:block th:include="~{/fragments/footer}"></th:block>
-
-    </footer>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
 </body>
 </html>

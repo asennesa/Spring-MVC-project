@@ -1,9 +1,9 @@
 package com.streamit.streamitdemo.repository;
 
-import com.streamit.streamitdemo.model.entity.BaseUser;
+import com.streamit.streamitdemo.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BaseUserRepository extends JpaRepository<BaseUser,Long> {
+public interface UserRepository extends JpaRepository<User,Long> {
 }
