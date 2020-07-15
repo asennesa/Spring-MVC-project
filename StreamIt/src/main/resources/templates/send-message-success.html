@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body>
+<header>
+    <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
+        <th:block th:include="~{/fragments/nav}"></th:block>
+    </nav>
+</header>
+<main >
+    <h1 class="text-center mt-2"><span class="badge badge-success ">Message sent!</span></h1>
+<!--    <div>Icons made by-->
+<!--        <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>-->
+<!--        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>-->
+<!--    </div>-->
+    <div class="text-center ">
+          <img src="/img/success-message.png" class="img-fluid m-4" alt="Message successfully sent.">
+    </div>
+</main>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

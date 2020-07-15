@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+
+</head>
+<body>
+<header>
+     <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
+         <th:block th:include="~{/fragments/nav}"></th:block>
+
+     </nav>
+</header>
+<main>
+    <div class="container bg-secondary p-3 rounded  text-center mt-5">
+        <h1 class="text-center p-5 font-weight-bold font-italic">
+            Make your choice...
+        </h1>
+    </div>
+    <div class="row p-5 justify-content-center" >
+        <div class="col-sm-3">
+            <div class="card text-center bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title">I am a fan.</h5>
+                    <p class="card-text">Register, create playlists and listen to your favourite music anytime you want !</p>
+                    <a href="/users/register/fan" class="btn btn-primary ">Sign up</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-center bg-warning">
+                <div class="card-body ">
+                    <h5 class="card-title">I am an artist.</h5>
+                    <p class="card-text">Register, upload and share your music with the world while gaining massive following!</p>
+                    <a href="/users/register/artist" class="btn btn-primary">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

@@ -2,6 +2,7 @@
 package com.streamit.streamitdemo.model.entity;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.Collection;
@@ -20,13 +21,12 @@ public class User implements UserDetails {
     private Set<Playlist> playlists;
     private Set<Song> songs;
     private Set<Show> shows;
-    private Set<User> followers;
     private Set<UserRole> roles;
     private List<Message> messagesReceived;
     private List<Message> messagesSent;
 
 
-    public User() {
+    public User()  {
     }
 
 
@@ -53,7 +53,7 @@ public class User implements UserDetails {
 
     @Override
     @Column(name = "password", nullable = false)
-    @Length(min = 6, message = "Password length must be at least six characters")
+    @Length(min = 2, message = "Password length must be at least two characters")
     public String getPassword() {
         return password;
     }
@@ -100,14 +100,7 @@ public class User implements UserDetails {
         this.shows = shows;
     }
 
-    @OneToMany
-    public Set<User> getFollowers() {
-        return followers;
-    }
 
-    public void setFollowers(Set<User> followers) {
-        this.followers = followers;
-    }
     @OneToMany(mappedBy = "receiver")
     public List<Message> getMessagesReceived() {
         return messagesReceived;

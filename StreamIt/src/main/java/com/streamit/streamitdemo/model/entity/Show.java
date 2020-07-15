@@ -45,6 +45,7 @@ public class Show {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @FutureOrPresent(message = "The date cannot be in the past!")
+    @Column(name = "date")
     public LocalDateTime getDate() {
         return date;
     }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body>
+<header>
+    <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
+        <th:block th:include="~{/fragments/nav}"></th:block>
+    </nav>
+</header>
+<main >
+    <h1 class="text-center mt-2"><span class="badge badge-warning ">Send message</span></h1>
+    <hr class="hr-3"/>
+    <form class="mx-auto w-25 bg-dark bg-gray p-3 rounded" action="/" method="">
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="email" class="h3 mb-2">Send to:</label>
+            </div>
+            <input type="text" class="form-control" id="email" name="email"/>
+            <h5 class="text-center bg-dark text-danger">User not found!</h5>
+        </div>
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="email" class="h3 mb-2">Message:</label>
+            </div>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+            <h5 class="text-center bg-dark text-danger">Message too short!</h5>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-secondary text-white mb-3">Login</button>
+        </div>
+    </form>
+</main>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>
