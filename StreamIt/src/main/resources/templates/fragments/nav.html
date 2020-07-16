@@ -31,10 +31,12 @@
                 <a class="nav-link orange-text active h6" href="/playlists/create">Create Playlist</a>
             </li>
             <li class="col-md-4">
-                <a class="nav-link orange-text active h6" href="/users/logout">Logout</a>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="btn btn-warning">Logout</button>
+                </form>
             </li>
             <li class="col-md-4">
-                <a class="nav-link orange-text active h6" href="/messages/send">Logout</a>
+                <a class="nav-link orange-text active h6" href="/messages/send">Send message</a>
             </li>
             <!--            </th:block>-->
         </ul>

@@ -25,8 +25,8 @@ public class DataBaseSeeder {
             UserRole adminRole = new UserRole();
             adminRole.setName("ADMIN");
 
-            this.userRoleRepository.save(userRole);
             this.userRoleRepository.save(adminRole);
+            this.userRoleRepository.save(userRole);
         }
     }
 }

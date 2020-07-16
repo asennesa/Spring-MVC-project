@@ -124,7 +124,7 @@ public class User implements UserDetails {
         return this.roles;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
@@ -139,22 +139,22 @@ public class User implements UserDetails {
     @Transient
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
     @Transient
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
     @Transient
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
     @Transient
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
 

@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 import java.util.Collection;
 import java.util.Set;
 
-public class UserServiceModel implements UserDetails {
+public class UserServiceModel  {
     private Long id;
     private String username;
     private String password;
@@ -55,16 +55,13 @@ public class UserServiceModel implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
-    @Override
-    @Transient
+
     public Collection<UserRoleServiceModel> getAuthorities() {
         return this.roles;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+
+
     public Set<UserRoleServiceModel> getRoles() {
         return this.roles;
     }
@@ -74,24 +71,5 @@ public class UserServiceModel implements UserDetails {
     }
 
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 
 }
