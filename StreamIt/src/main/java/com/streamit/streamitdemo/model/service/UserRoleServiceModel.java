@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 public class UserRoleServiceModel implements GrantedAuthority {
     private Long id;
@@ -12,8 +13,7 @@ public class UserRoleServiceModel implements GrantedAuthority {
     public UserRoleServiceModel() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     public Long getId() {
         return this.id;
     }

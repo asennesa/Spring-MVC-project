@@ -18,8 +18,6 @@ public class UserServiceModel  {
     public UserServiceModel() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     public Long getId() {
         return id;

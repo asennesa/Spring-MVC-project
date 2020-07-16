@@ -1,28 +1,24 @@
-package com.streamit.streamitdemo.model.entity;
+package com.streamit.streamitdemo.model.service;
 
+import com.streamit.streamitdemo.model.entity.Playlist;
+import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-@Entity
-@Table(name = "songs")
-public class Song {
+public class SongServiceModel {
     private Long id;
     private String name;
     private byte[] songFile;
     private Set<Playlist> playlists;
     private Set<User> users;
 
-    public Song() {
+    public SongServiceModel() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+
     public Long getId() {
         return id;
     }
@@ -32,8 +28,7 @@ public class Song {
     }
 
 
-    @Column(name = "name", nullable = false)
-    @Length(min=2,message = "Song name length must be at least 2 characters")
+    @Length(min = 2, message = "Song name length must be at least 2 characters")
     public String getName() {
         return name;
     }
@@ -42,8 +37,7 @@ public class Song {
         this.name = name;
     }
 
-    @Lob
-    @Column(name = "song_file", nullable = false)
+    @NotNull
     public byte[] getSongFile() {
         return songFile;
     }
@@ -52,8 +46,6 @@ public class Song {
         this.songFile = songFile;
     }
 
-
-    @ManyToMany
     public Set<Playlist> getPlaylists() {
         return playlists;
     }
@@ -61,7 +53,7 @@ public class Song {
     public void setPlaylists(Set<Playlist> playlists) {
         this.playlists = playlists;
     }
-    @ManyToMany
+
     public Set<User> getUsers() {
         return users;
     }
