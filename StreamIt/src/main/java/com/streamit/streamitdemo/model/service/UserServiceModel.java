@@ -1,4 +1,5 @@
 package com.streamit.streamitdemo.model.service;
+
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,12 +8,13 @@ import javax.validation.constraints.Email;
 import java.util.Collection;
 import java.util.Set;
 
-public class UserServiceModel  {
+public class UserServiceModel {
     private Long id;
     private String username;
     private String password;
     private String email;
     private Set<UserRoleServiceModel> roles;
+    private Set<SongServiceModel> songs;
 
 
     public UserServiceModel() {
@@ -59,7 +61,6 @@ public class UserServiceModel  {
     }
 
 
-
     public Set<UserRoleServiceModel> getRoles() {
         return this.roles;
     }
@@ -68,6 +69,11 @@ public class UserServiceModel  {
         this.roles = roles;
     }
 
+    public Set<SongServiceModel> getSongs() {
+        return songs;
+    }
 
-
+    public void setSongs(Set<SongServiceModel> songs) {
+        this.songs = songs;
+    }
 }

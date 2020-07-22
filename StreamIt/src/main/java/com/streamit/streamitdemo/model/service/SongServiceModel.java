@@ -6,14 +6,15 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 public class SongServiceModel {
     private Long id;
     private String name;
     private byte[] songFile;
-    private Set<Playlist> playlists;
-    private Set<User> users;
+    private Set<PlaylistServiceModel> playlists;
+    private Set<UserServiceModel> users;
 
     public SongServiceModel() {
     }
@@ -46,19 +47,19 @@ public class SongServiceModel {
         this.songFile = songFile;
     }
 
-    public Set<Playlist> getPlaylists() {
+    public Set<PlaylistServiceModel> getPlaylists() {
         return playlists;
     }
 
-    public void setPlaylists(Set<Playlist> playlists) {
+    public void setPlaylists(Set<PlaylistServiceModel> playlists) {
         this.playlists = playlists;
     }
 
-    public Set<User> getUsers() {
+    public Set<UserServiceModel> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<UserServiceModel> users) {
         this.users = users;
     }
 }

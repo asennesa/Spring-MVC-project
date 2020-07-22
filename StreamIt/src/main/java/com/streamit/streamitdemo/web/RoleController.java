@@ -26,22 +26,6 @@ public class RoleController {
         this.modelMapper = modelMapper;
     }
 
-//
-//    @GetMapping("/add")
-//    public ModelAndView add(ModelAndView modelAndView) {
-//        modelAndView.addObject("usernames",this.userService.findAllUsernames());
-//        modelAndView.setViewName("role-add");
-//        return modelAndView;
-//    }
-//
-//
-//    @PostMapping("/add")
-//    public String addConfirm(@Valid @ModelAttribute("roleAddBindingModel")RoleAddBindingModel roleAddBindingModel){
-//        this.userService.addRoleToUser(roleAddBindingModel.getUsername(),roleAddBindingModel.getRole());
-//
-//        return "redirect:/";
-//
-//    }
 
 
 

@@ -1,13 +1,12 @@
 
 package com.streamit.streamitdemo.model.entity;
+
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -18,15 +17,15 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String username;
-    private Set<Playlist> playlists;
-    private Set<Song> songs;
-    private Set<Show> shows;
+    private Set<Playlist> playlists = new HashSet<>();
+    private Set<Song> songs = new HashSet<>();
+    private Set<Show> shows = new HashSet<>();
     private Set<UserRole> roles;
-    private List<Message> messagesReceived;
-    private List<Message> messagesSent;
+    private List<Message> messagesReceived = new ArrayList<>();
+    private List<Message> messagesSent = new ArrayList<>();
 
 
-    public User()  {
+    public User() {
     }
 
 
@@ -63,7 +62,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     @Length(min = 2, message = "Username length must be at least two characters")
     public String getUsername() {
         return username;
@@ -109,6 +108,7 @@ public class User implements UserDetails {
     public void setMessagesReceived(List<Message> messagesReceived) {
         this.messagesReceived = messagesReceived;
     }
+
     @OneToMany(mappedBy = "sender")
     public List<Message> getMessagesSent() {
         return messagesSent;
@@ -136,21 +136,25 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+
     @Transient
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Transient
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Transient
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @Transient
     @Override
     public boolean isEnabled() {

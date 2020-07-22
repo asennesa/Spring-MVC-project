@@ -5,5 +5,5 @@ import com.streamit.streamitdemo.model.service.SongServiceModel;
 
 public interface SongService {
 
-    void saveSong(SongServiceModel songServiceModel);
+    void saveSong(SongServiceModel songServiceModel, String username);
 }

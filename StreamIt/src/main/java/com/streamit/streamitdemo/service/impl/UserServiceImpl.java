@@ -1,5 +1,6 @@
 package com.streamit.streamitdemo.service.impl;
 
+import com.streamit.streamitdemo.model.entity.Song;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.entity.UserRole;
 import com.streamit.streamitdemo.model.service.UserServiceModel;
@@ -7,6 +8,7 @@ import com.streamit.streamitdemo.repository.UserRepository;
 import com.streamit.streamitdemo.service.UserRoleService;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -43,10 +46,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserServiceModel userServiceModel) {
-        User user = this.modelMapper.map(userServiceModel,User.class);
+        User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(getRolesForRegistration());
+        user.setSongs(new HashSet<Song>());
         this.userRepository.save(user);
+    }
+
+    @Override
+    public UserServiceModel findByUsername(String username) {
+        User user = userRepository.findUserByUsername(username).orElse(null);
+        UserServiceModel userServiceModel = new UserServiceModel();
+        BeanUtils.copyProperties(user,userServiceModel);
+        return userServiceModel;
     }
 
     private Set<UserRole> getRolesForRegistration() {
