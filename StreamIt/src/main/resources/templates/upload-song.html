@@ -13,32 +13,29 @@
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-warning ">Upload song</span></h1>
     <hr class="hr-3"/>
-    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" th:object="${songBindingModel}" th:action="@{/songs/upload}" th:method="post" enctype="multipart/form-data">
+    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" th:object="${songBindingModel}"
+          th:action="@{/songs/upload}" th:method="post" enctype="multipart/form-data">
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">Song name</label>
             </div>
-            <input type="text" class="form-control" id="name" name="name" />
-            <small class="text-danger">Incorrect name!</small>
+            <input th:field="*{name}" th:errorclass="bg-danger" type="text" class="form-control" id="name" name="name"/>
+            <small th:each="e : ${#fields.errors('name')}" th:text="${e}" class="text-danger">Incorrect name!</small>
         </div>
-        <p th:text="${message}" th:if="${message != null}" class="alert alert-primary"></p>
+
         <div class="form-group row">
             <div class="col-sm-12">
-<!--                <div class="custom-file">-->
-<!--                    <input type="file" id="songFile" name="songFile" class="custom-file-input" required accept="audio">-->
-<!--                    <label class="custom-file-label" for="songFile"  > <span th:text="${name}"></span> </label>-->
-<!--                    <small class="text-danger">Incorrect file type,only [.mp3] format allowed.</small>-->
-<!--                </div>-->
+                <small class="text-white ">Please be patient.Uploading may take a while depending on your file size.</small>
                 <div class="form-group badge-lg badge-light p-1">
                     <input type="file" name="file" class="form-control-file">
                 </div>
+                <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
             </div>
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-secondary text-white mb-3" value="Upload" >Upload</button>
+            <button type="submit" class="btn btn-secondary text-white mb-3" value="Upload">Upload</button>
         </div>
-
 
 
     </form>

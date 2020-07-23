@@ -20,7 +20,7 @@ public class SongBindingModel {
         this.name = name;
     }
 
-    @NotNull
+    @NotNull(message = "Choose a file to upload.")
     public byte[] getSongFile() {
         return songFile;
     }

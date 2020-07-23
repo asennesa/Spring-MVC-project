@@ -4,11 +4,14 @@ import com.streamit.streamitdemo.model.binding.SongBindingModel;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
 import com.streamit.streamitdemo.service.SongService;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -27,7 +30,10 @@ public class SongController {
     }
 
     @GetMapping("/upload")
-    private String songs() {
+    private String songs(Model model) {
+        if (!model.containsAttribute("songBindingModel")) {
+            model.addAttribute("songBindingModel", new SongBindingModel());
+        }
         return "upload-song";
     }
 
@@ -39,28 +45,37 @@ public class SongController {
         try {
             if (file != null && !file.isEmpty() && file.getOriginalFilename().length() > 0) {
                 if (Pattern.matches(".+\\.(mp3)", file.getOriginalFilename())) {
-                    songBindingModel.setSongFile(file.getBytes());
-                    String name = principal.getName();
-                    this.songService.saveSong(this.modelMapper.map(songBindingModel, SongServiceModel.class),principal.getName());
-
-                    redirectAttributes.addFlashAttribute("message", "Upload successful!");
-
+                    if (file.getSize() > 31457280) {
+                        redirectAttributes.addFlashAttribute("message", "File too large!\r\nMaximum file size = 30 Megabytes.");
+                    } else {
+                        songBindingModel.setSongFile(file.getBytes());
+                        String name = principal.getName();
+                        this.songService.saveSong(this.modelMapper.map(songBindingModel, SongServiceModel.class), principal.getName());
+                        redirectAttributes.addFlashAttribute("message", "Upload successful!");
+                    }
                 } else {
-                    redirectAttributes.addFlashAttribute("errorMessages", "Submit file [.mp3] format.");
-                    redirectAttributes.addFlashAttribute("songBindingModel", songBindingModel);
-                    redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.offer", binding);
-                    return "redirect:upload";
+                    redirectAttributes.addFlashAttribute("message", "Submit file [.mp3] format.");
                 }
+                redirectAttributes.addFlashAttribute("songBindingModel", songBindingModel);
+                redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.songBindingModel", binding);
+                return "redirect:upload";
             }
         } catch (Exception ex) {
-            redirectAttributes.addFlashAttribute("errorMessages", ex.getMessage());
-            redirectAttributes.addFlashAttribute("songBindingModel", songBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.offer", binding);
-            return "redirect:upload";
-
+            ex.printStackTrace();
         }
-
 
         return "upload-song";
     }
+
+
+    @ExceptionHandler(value = MultipartException.class)
+    public ModelAndView handleFileUploadException(MultipartException ex) {
+
+        ModelAndView modelAndVew = new ModelAndView("error");
+        modelAndVew.addObject("errorMsg", ex.getMessage());
+
+        return modelAndVew;
+    }
+
+
 }

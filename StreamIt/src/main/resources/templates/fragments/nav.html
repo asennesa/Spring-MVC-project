@@ -1,4 +1,5 @@
-<th:block xmlns:th="http://www.thymeleaf.org">
+<th:block xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
     <p><i class="fas fa-compact-disc fa-2x"></i></p>
     <a class="nav-link text-white active h4" href="/">StreamIt!</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -6,39 +7,35 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-        <ul class="navbar-nav row">
-            <li class="nav-item col-md-4">
-                <a class="nav-link" href="/home">
-                    <span >Welcome, {username}!</span>
-                </a>
-            </li>
-            <!--            <th:block th:if="${session.isEmpty()}">-->
+        <ul class="navbar-nav mr-3">
+
+            <th:block sec:authorize="isAnonymous()" >
             <li class="nav-item col-md-4">
                 <a class="nav-link orange-text active h5" href="/users/login">Login</a>
             </li>
-            <li class="nav-item col-md-4">
+            <li  class="nav-item col-md-4">
                 <a class="nav-link orange-text active h5" href="/users/register">Register</a>
             </li>
-            <!--            </th:block>-->
-            <!--            <th:block  th:unless="${session.isEmpty()}">-->
-            <li class="col-md-4">
+            </th:block>
+            <th:block sec:authorize="isAuthenticated()" >
+            <li class="nav-item">
                 <a class="nav-link orange-text active h6" href="/songs/upload">Upload</a>
             </li>
-            <li class="col-md-4">
+            <li class="nav-item">
                 <a class="nav-link orange-text active h6" href="/shows/add">Add Show</a>
             </li>
-            <li class="col-md-4">
+            <li class="nav-item">
                 <a class="nav-link orange-text active h6" href="/playlists/create">Create Playlist</a>
             </li>
-            <li class="col-md-4">
+            <li class="nav-item">
+                <a class="nav-link orange-text active h6" href="/messages/send">Send message</a>
+            </li>
+            <li class="nav-item">
                 <form th:action="@{/logout}" th:method="post">
                     <button class="btn btn-warning">Logout</button>
                 </form>
             </li>
-            <li class="col-md-4">
-                <a class="nav-link orange-text active h6" href="/messages/send">Send message</a>
-            </li>
-            <!--            </th:block>-->
+            </th:block>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

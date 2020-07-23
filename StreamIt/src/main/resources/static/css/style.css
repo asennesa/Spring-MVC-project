@@ -64,6 +64,10 @@ nav > p {
     /*border-radius: 10px;*/
     width:30%;
 }
+.div#fileSizeError{
+    background-image: url(/img/forbidden.jpg);
+
+}
 #playlist{
     list-style: none;
 }
