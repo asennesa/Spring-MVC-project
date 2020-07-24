@@ -1,7 +1,9 @@
 <th:block xmlns:th="http://www.thymeleaf.org"
           xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
     <p><i class="fas fa-compact-disc fa-2x"></i></p>
-    <a class="nav-link text-white active h4" href="/">StreamIt!</a>
+
+    <a sec:authorize="isAnonymous()" class="nav-link text-white active h4" href="/">StreamIt!</a>
+    <a sec:authorize="isAuthenticated()" class="nav-link text-white active h4" href="/home">StreamIt!</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

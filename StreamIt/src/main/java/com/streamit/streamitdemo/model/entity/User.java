@@ -41,7 +41,7 @@ public class User implements UserDetails {
     }
 
     @Email(message = "Enter valid email address!")
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     public String getEmail() {
         return email;
     }
@@ -62,7 +62,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username", nullable = false)
     @Length(min = 2, message = "Username length must be at least two characters")
     public String getUsername() {
         return username;

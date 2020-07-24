@@ -4,6 +4,7 @@ import com.streamit.streamitdemo.model.entity.Song;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.entity.UserRole;
 import com.streamit.streamitdemo.model.service.UserServiceModel;
+import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.repository.UserRepository;
 import com.streamit.streamitdemo.service.UserRoleService;
 import com.streamit.streamitdemo.service.UserService;
@@ -15,9 +16,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -54,11 +58,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserServiceModel findByUsername(String username) {
         User user = userRepository.findUserByUsername(username).orElse(null);
-        UserServiceModel userServiceModel = new UserServiceModel();
-        BeanUtils.copyProperties(user,userServiceModel);
-        return userServiceModel;
+        return this.modelMapper.map(user, UserServiceModel.class);
+    }
+
+    @Override
+    public Boolean isUserAlreadyRegistered(String email, String username) {
+        return userRepository.findByEmail(email).isPresent() || userRepository.findUserByUsername(username).isPresent();
     }
 
     private Set<UserRole> getRolesForRegistration() {
@@ -73,4 +81,12 @@ public class UserServiceImpl implements UserService {
         return roles;
     }
 
+    @Override
+    @Transactional
+    public List<UserViewModel> findAllUsers() {
+        return this.userRepository.findAll().stream().map(item -> {
+            UserViewModel userViewModel = this.modelMapper.map(item, UserViewModel.class);
+            return userViewModel;
+        }).collect(Collectors.toList());
+    }
 }

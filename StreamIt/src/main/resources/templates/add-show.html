@@ -8,37 +8,50 @@
 <header>
     <nav class="navbar  navbar-expand-lg navbar-background bg-dark ">
         <th:block th:include="~{/fragments/nav}"></th:block>
-
     </nav>
 </header>
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-warning ">Add show</span></h1>
     <hr class="hr-3"/>
-    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" action="/" method="">
+    <form class="mx-auto w-25 bg-dark p-3 rounded text-center"  th:object="${showBindingModel}" th:action="@{/shows/add}" method="POST">
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="showName" class="h4 mb-2">Name</label>
             </div>
-            <input type="text" class="form-control" id="showName" name="showName" />
-            <small class="text-danger">Incorrect name!</small>
+            <input  th:field ="*{showName}" type="text" class="form-control" id="showName" name="showName" />
+            <small th:each="e : ${#fields.errors('showName')}" th:text="${e}" class="text-danger">Incorrect name!</small>
         </div>
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="date" class="h4 mb-2">Show date</label>
             </div>
-            <input   type="datetime-local" class="form-control" id="date" name="date"/>
-            <small  class="text-danger">Show date error</small>
+            <input th:field ="*{date}" type="datetime-local" class="form-control" id="date" name="date"/>
+            <small th:each="e : ${#fields.errors('date')}" th:text="${e}"  class="text-danger">Show date error</small>
         </div>
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="venueAddress" class="h4 mb-2">Venue address</label>
             </div>
-            <input type="text" class="form-control" id="venueAddress" name="venueAddress" />
-            <small class="text-danger">Venue address error!</small>
+            <input th:field="*{venueAddress}" type="text" class="form-control" id="venueAddress" name="venueAddress" />
+            <small th:each="e : ${#fields.errors('venueAddress')}" th:text="${e}" class="text-danger">Venue address error!</small>
         </div>
         <div class="button-holder d-flex justify-content-center">
             <button type="submit" class="btn btn-secondary text-white mb-3">Add show</button>
         </div>
+        <div class="form-group ">
+            <div class="label-holder  textCol d-flex justify-content-center">
+            <div class="card " style="width: 30rem;">
+                <div class="card-header bg-dark text-white font-weight-bold">
+                    Your shows:
+                </div>
+                <ul  class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="i : ${allShows}" th:object="${i}"
+                        th:text="|${i.showName}, Date: ${i.date.format()}, VenueAddress: ${i.venueAddress} |">Cras justo odio</li>
+                </ul>
+            </div>
+        </div>
+        </div>
+
     </form>
 </main>
 <footer class="footer bg-dark  py-2">

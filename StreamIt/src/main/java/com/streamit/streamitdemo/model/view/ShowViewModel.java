@@ -1,5 +1,6 @@
-package com.streamit.streamitdemo.model.entity;
+package com.streamit.streamitdemo.model.view;
 
+import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,23 +9,18 @@ import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-
-@Entity
-@Table(name = "shows")
-public class Show {
+public class ShowViewModel {
     private Long id;
     private String showName;
     private LocalDateTime date;
     private String venueAddress;
-    private Set<User> users;
 
 
-    public Show() {
+    public ShowViewModel() {
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
     public Long getId() {
         return id;
     }
@@ -33,7 +29,7 @@ public class Show {
         this.id = id;
     }
 
-    @Column(name = "show_name", nullable = false)
+
     @Length(min = 2, message = "Show name length must be at least 2 characters")
     public String getShowName() {
         return showName;
@@ -45,7 +41,6 @@ public class Show {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @FutureOrPresent(message = "The date cannot be in the past!")
-    @Column(name = "date")
     public LocalDateTime getDate() {
         return date;
     }
@@ -54,7 +49,7 @@ public class Show {
         this.date = date;
     }
 
-    @Column(name = "venue_adress", nullable = false)
+
     @Length(min = 6, message = "Venue address length must be at least six characters")
     public String getVenueAddress() {
         return venueAddress;
@@ -64,26 +59,5 @@ public class Show {
         this.venueAddress = venueAddress;
     }
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "shows_users",
-            joinColumns = {@JoinColumn(name = "fk_shows")},
-            inverseJoinColumns = {@JoinColumn(name = "fk_users")})
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
-    public void addUser(User user) {
-        this.users.add(user);
-        user.getShows().add(this);
-    }
-
-    public void removeUser(User user) {
-        this.users.remove(user);
-        user.getShows().remove(this);
-    }
 
 }

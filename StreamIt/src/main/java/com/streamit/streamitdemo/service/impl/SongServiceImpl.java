@@ -32,9 +32,6 @@ public class SongServiceImpl implements SongService {
     public void saveSong(SongServiceModel songServiceModel, String username) {
         Song song = this.modelMapper.map(songServiceModel, Song.class);
         song.setUsers(new HashSet<User>());
-//        UserServiceModel userServiceModel = this.userService.findByUsername(username);
-//        User user = new User();
-//        BeanUtils.copyProperties(userServiceModel,user);
         song.addUser(this.modelMapper.map(userService.findByUsername(username),User.class));
         this.songRepository.saveAndFlush(song);
     }

@@ -42,8 +42,14 @@ public class UserController {
                                BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
+            redirectAttributes.addFlashAttribute("message","Passwords do not match.");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
-
+            return "redirect:register";
+        }
+        if(userService.isUserAlreadyRegistered(userRegisterBindingModel.getEmail(),userRegisterBindingModel.getUsername())){
+            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
+            redirectAttributes.addFlashAttribute("message","Username and/or email already in use.");
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             return "redirect:register";
         }
         this.userService.register(this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
