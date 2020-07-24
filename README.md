@@ -1,2 +1,2 @@
 # Spring-MVC-project
-## Music streaming platrform.
+## Music streaming platform.
