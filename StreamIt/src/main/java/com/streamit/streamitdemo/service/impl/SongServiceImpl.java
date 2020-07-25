@@ -4,6 +4,8 @@ import com.streamit.streamitdemo.model.entity.Song;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
 import com.streamit.streamitdemo.model.service.UserServiceModel;
+import com.streamit.streamitdemo.model.view.ShowViewModel;
+import com.streamit.streamitdemo.model.view.SongViewModel;
 import com.streamit.streamitdemo.repository.SongRepository;
 import com.streamit.streamitdemo.repository.UserRepository;
 import com.streamit.streamitdemo.service.SongService;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class SongServiceImpl implements SongService {
@@ -34,5 +38,14 @@ public class SongServiceImpl implements SongService {
         song.setUsers(new HashSet<User>());
         song.addUser(this.modelMapper.map(userService.findByUsername(username),User.class));
         this.songRepository.saveAndFlush(song);
+    }
+
+    @Override
+    public Set<SongViewModel> getAllSongsByUser(String username) {
+        return this.userService.findByUsername(username).getSongs().stream().map(item -> {
+            SongViewModel songViewModel = this.modelMapper.map(item, SongViewModel.class);
+            return songViewModel;
+        }).collect(Collectors.toSet());
+
     }
 }

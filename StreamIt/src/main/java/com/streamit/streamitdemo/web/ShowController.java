@@ -7,10 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,6 +18,7 @@ import java.security.Principal;
 @RequestMapping("/shows")
 public class ShowController {
     private final ShowService showService;
+
     private final ModelMapper modelMapper;
 
     public ShowController(ShowService showService, ModelMapper modelMapper) {
@@ -29,10 +27,11 @@ public class ShowController {
     }
 
     @GetMapping("/add")
-    public String add(Model model) {
+    public String add(Model model,Principal principal) {
         if(!model.containsAttribute("showBindingModel")){
             model.addAttribute("showBindingModel", new ShowBindingModel());
-            model.addAttribute("allShows",this.showService.findAllShows());
+            model.addAttribute("allShows",this.showService.findAllShowsByUser(principal.getName()));
+
         }
 
         return "add-show";
@@ -51,6 +50,12 @@ public class ShowController {
         this.showService.saveShow(this.modelMapper.map(showBindingModel, ShowServiceModel.class),principal.getName());
         return new ModelAndView("redirect:add");
 
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id,Principal principal){
+        this.showService.delete(id,principal.getName());
+        return "redirect:/";
     }
 
 }

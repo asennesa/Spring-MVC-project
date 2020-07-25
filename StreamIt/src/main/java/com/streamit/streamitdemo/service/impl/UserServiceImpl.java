@@ -1,5 +1,6 @@
 package com.streamit.streamitdemo.service.impl;
 
+import com.streamit.streamitdemo.model.entity.Show;
 import com.streamit.streamitdemo.model.entity.Song;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.entity.UserRole;
@@ -17,10 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,8 +51,8 @@ public class UserServiceImpl implements UserService {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(getRolesForRegistration());
-        user.setSongs(new HashSet<Song>());
-        this.userRepository.save(user);
+        user.setSongs(new HashSet<>());
+        this.userRepository.saveAndFlush(user);
     }
 
     @Override
@@ -88,5 +86,14 @@ public class UserServiceImpl implements UserService {
             UserViewModel userViewModel = this.modelMapper.map(item, UserViewModel.class);
             return userViewModel;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void removeShowFromUserById(Long showId, String username) {
+        User user = this.userRepository.findUserByUsername(username).orElse(null);
+        user.getShows().removeIf(show -> show.getId().equals(showId));
+        this.userRepository.saveAndFlush(user);
+
+
     }
 }

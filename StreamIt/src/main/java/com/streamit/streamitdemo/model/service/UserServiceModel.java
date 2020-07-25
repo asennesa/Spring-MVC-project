@@ -15,6 +15,7 @@ public class UserServiceModel {
     private String email;
     private Set<UserRoleServiceModel> roles;
     private Set<SongServiceModel> songs;
+    private Set<ShowServiceModel> shows;
 
 
     public UserServiceModel() {
@@ -75,5 +76,13 @@ public class UserServiceModel {
 
     public void setSongs(Set<SongServiceModel> songs) {
         this.songs = songs;
+    }
+
+    public Set<ShowServiceModel> getShows() {
+        return shows;
+    }
+
+    public void setShows(Set<ShowServiceModel> shows) {
+        this.shows = shows;
     }
 }

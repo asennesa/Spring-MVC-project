@@ -44,10 +44,12 @@
                 <div class="card-header bg-dark text-white font-weight-bold">
                     Your shows:
                 </div>
-                <ul  class="list-group list-group-flush">
-                    <li class="list-group-item" th:each="i : ${allShows}" th:object="${i}"
-                        th:text="|${i.showName}, Date: ${i.date.format()}, VenueAddress: ${i.venueAddress} |">Cras justo odio</li>
+                <ul  class="list-group list-group-flush" th:each="i : ${allShows}" th:object="${i}">
+                    <li class="list-group-item"
+                        th:text="|${i.showName}, Date: ${i.date}, VenueAddress: ${i.venueAddress} |">Cras justo odio</li>
+                    <a th:href="@{/shows/delete/{id}(id=*{id})}" class="btn btn-info" >Delete</a>
                 </ul>
+
             </div>
         </div>
         </div>

@@ -5,6 +5,7 @@ import com.streamit.streamitdemo.model.entity.Song;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.service.ShowServiceModel;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
+import com.streamit.streamitdemo.model.service.UserServiceModel;
 import com.streamit.streamitdemo.model.view.ShowViewModel;
 import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.repository.ShowRepository;
@@ -46,10 +47,30 @@ public class ShowServiceImpl implements ShowService {
     }
 
     @Override
-    public List<ShowViewModel> findAllShows() {
-        return this.showRepository.findAll().stream().map(item -> {
+    public List<ShowViewModel> findAllShowsByUser(String username) {
+        return this.userService.findByUsername(username).getShows().stream().map(item -> {
             ShowViewModel showViewModel = this.modelMapper.map(item, ShowViewModel.class);
             return showViewModel;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id, String username) {
+        Show show = this.showRepository.findById(id).orElse(null);
+
+        if (show.getUsers().size() == 1) {
+            this.showRepository.deleteById(id);
+        } else {
+            show.getUsers().removeIf(user -> user.getUsername().equals(username));
+            this.userService.removeShowFromUserById(id,username);
+            this.showRepository.saveAndFlush(show);
+
+        }
+
+
+        //TODO: Get current user from user service if show.getUsers() is empty
+        // deleted show by id else remove only user from show;
+
     }
 }

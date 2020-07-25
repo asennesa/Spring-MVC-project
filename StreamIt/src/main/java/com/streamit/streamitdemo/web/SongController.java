@@ -3,6 +3,7 @@ package com.streamit.streamitdemo.web;
 import com.streamit.streamitdemo.model.binding.SongBindingModel;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
 import com.streamit.streamitdemo.service.SongService;
+import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

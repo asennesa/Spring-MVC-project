@@ -12,5 +12,7 @@ public interface UserService extends UserDetailsService {
     UserServiceModel findByUsername(String username);
     Boolean isUserAlreadyRegistered(String email,String username);
     List<UserViewModel> findAllUsers();
+    void removeShowFromUserById (Long showId, String username);
+
 
 }
