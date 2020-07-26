@@ -10,7 +10,7 @@ import java.util.Set;
 public class SongViewModel {
     private Long id;
     private String name;
-    private byte[] songFile;
+    private String songUrl;
 
 
     public SongViewModel() {
@@ -34,14 +34,11 @@ public class SongViewModel {
         this.name = name;
     }
 
-
-    public byte[] getSongFile() {
-        return songFile;
+    public String getSongUrl() {
+        return songUrl;
     }
 
-    public void setSongFile(byte[] songFile) {
-        this.songFile = songFile;
+    public void setSongUrl(String songUrl) {
+        this.songUrl = songUrl;
     }
-
-
 }

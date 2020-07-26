@@ -14,9 +14,9 @@ import java.util.Set;
 public class Song {
     private Long id;
     private String name;
-    private byte[] songFile;
-    private Set<Playlist> playlists ;
-    private Set<User> users ;
+    private String songUrl;
+    private Set<Playlist> playlists = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     public Song() {
     }
@@ -34,7 +34,7 @@ public class Song {
 
 
     @Column(name = "name", nullable = false)
-    @Length(min=2,message = "Song name length must be at least 2 characters")
+    @Length(min = 2, message = "Song name length must be at least 2 characters")
     public String getName() {
         return name;
     }
@@ -43,16 +43,14 @@ public class Song {
         this.name = name;
     }
 
-    @Lob
-    @Column(name = "song_file", nullable = false)
-    public byte[] getSongFile() {
-        return songFile;
+    @Column(name = "song_url")
+    public String getSongUrl() {
+        return songUrl;
     }
 
-    public void setSongFile(byte[] songFile) {
-        this.songFile = songFile;
+    public void setSongUrl(String songUrl) {
+        this.songUrl = songUrl;
     }
-
 
     @ManyToMany
     public Set<Playlist> getPlaylists() {
@@ -62,6 +60,7 @@ public class Song {
     public void setPlaylists(Set<Playlist> playlists) {
         this.playlists = playlists;
     }
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "songs_users",
             joinColumns = {@JoinColumn(name = "fk_songs")},

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 public class SongBindingModel {
     private String name;
-    private byte[] songFile;
+    private String songUrl;
 
     public SongBindingModel() {
     }
@@ -20,12 +20,11 @@ public class SongBindingModel {
         this.name = name;
     }
 
-    @NotNull(message = "Choose a file to upload.")
-    public byte[] getSongFile() {
-        return songFile;
+    public String getSongUrl() {
+        return songUrl;
     }
 
-    public void setSongFile(byte[] songFile) {
-        this.songFile = songFile;
+    public void setSongUrl(String songUrl) {
+        this.songUrl = songUrl;
     }
 }

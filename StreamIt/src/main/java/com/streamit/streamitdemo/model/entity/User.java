@@ -18,7 +18,7 @@ public class User implements UserDetails {
     private String password;
     private String username;
     private Set<Playlist> playlists = new HashSet<>();
-    private Set<Song> songs = new HashSet<>();
+    private List<Song> songs = new ArrayList<>();
     private Set<Show> shows = new HashSet<>();
     private Set<UserRole> roles;
     private List<Message> messagesReceived = new ArrayList<>();
@@ -81,14 +81,16 @@ public class User implements UserDetails {
         this.playlists = playlists;
     }
 
+
     @ManyToMany(mappedBy = "users")
-    public Set<Song> getSongs() {
+    public List<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<Song> songs) {
+    public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
+
 
     @ManyToMany(mappedBy = "users")
     public Set<Show> getShows() {

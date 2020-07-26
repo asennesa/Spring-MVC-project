@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(getRolesForRegistration());
-        user.setSongs(new HashSet<>());
+//        user.setSongs(new ArrayList<>());
         this.userRepository.saveAndFlush(user);
     }
 
@@ -95,5 +95,13 @@ public class UserServiceImpl implements UserService {
         this.userRepository.saveAndFlush(user);
 
 
+    }
+
+    @Override
+    public UserViewModel findById(Long id) {
+        return this.userRepository.findById(id).map(item->{
+            UserViewModel userViewModel = this.modelMapper.map(item,UserViewModel.class);
+            return userViewModel;
+        }).orElse(null);
     }
 }

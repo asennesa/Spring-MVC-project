@@ -1,29 +1,35 @@
 package com.streamit.streamitdemo.web;
 
-import com.streamit.streamitdemo.model.binding.UserLoginBindingModel;
 import com.streamit.streamitdemo.model.binding.UserRegisterBindingModel;
 import com.streamit.streamitdemo.model.service.UserServiceModel;
+import com.streamit.streamitdemo.model.view.SongViewModel;
+import com.streamit.streamitdemo.model.view.UserViewModel;
+import com.streamit.streamitdemo.service.SongService;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
+    private final SongService songService;
     private final ModelMapper modelMapper;
 
-    public UserController(UserService userService, ModelMapper modelMapper) {
+    public UserController(UserService userService, SongService songService, ModelMapper modelMapper) {
         this.userService = userService;
+        this.songService = songService;
         this.modelMapper = modelMapper;
     }
 
@@ -37,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerPost(@Valid @ModelAttribute("userRegisterBindingModel")
+    public String registerConfirm(@Valid @ModelAttribute("userRegisterBindingModel")
                                        UserRegisterBindingModel userRegisterBindingModel,
                                BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
@@ -56,6 +62,32 @@ public class UserController {
         return "redirect:login";
 
     }
+
+    @GetMapping("/listen-now")
+    @Transactional
+    public ModelAndView listenNow(@RequestParam("id") Long id,ModelAndView modelAndView) {
+        UserViewModel userViewModel =this.userService.findById(id);
+        List<SongViewModel> userUploads = this.songService.getAllSongsByUser(userViewModel.getUsername());
+        modelAndView.addObject("firstSong", userUploads.iterator().next());
+        userUploads.remove(userUploads.iterator().next());
+        modelAndView.addObject("allUserUploads", userUploads);
+        modelAndView.addObject("uploads",true);
+        modelAndView.setViewName("playlist");
+        return modelAndView;
+
+    }
+//    @GetMapping("/user-profile/{id}")
+//    public String chosenPlaylist(@PathVariable("id") Long id, Model model) {
+//        UserViewModel userViewModel =this.userService.findById(id);
+//        List<SongViewModel> userUploads = this.songService.getAllSongsByUser(userViewModel.getUsername());
+//        model.addAttribute("firstSong", userUploads.iterator().next());
+//        userUploads.remove(userUploads.iterator().next());
+//        model.addAttribute("allUserUploads", userUploads);
+//        model.addAttribute("uploads",true);
+//        return "playlist";
+//
+//
+//    }
 
 
     @GetMapping("/login")

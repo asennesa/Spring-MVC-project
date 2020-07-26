@@ -4,13 +4,14 @@ import com.streamit.streamitdemo.model.entity.Song;
 import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.List;
 import java.util.Set;
 
 public class PlaylistServiceModel {
     private Long id;
     private String name;
     private String description;
-    private Set<SongServiceModel> songs;
+    private List<SongServiceModel> songs;
     private UserServiceModel userServiceModel;
 
 
@@ -37,11 +38,11 @@ public class PlaylistServiceModel {
     }
 
 
-    public Set<SongServiceModel> getSongs() {
+    public List<SongServiceModel> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<SongServiceModel> songs) {
+    public void setSongs(List<SongServiceModel> songs) {
         this.songs = songs;
     }
 

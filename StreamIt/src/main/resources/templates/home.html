@@ -40,14 +40,15 @@
                 </div>
             </div>
         </div>
-
+        <div class="container-fluid text-center m-2 bg-dark text-white ">Listen to all the other registered artists!</div>
         <div class="container-fluid m-2">
             <div class="row mx-auto d-flex flex-row justify-content-center m-2">
                 <div  th:each="i : ${allUsers}" th:object="${i}" class="card bg-secondary m-2" style="width: 12rem;">
                     <div class="card-body">
                         <h5 class="card-title" th:text="|*{username}|">Artist name</h5>
                         <p class="card-text" th:text="|*{songs.size()} songs|">songs count</p>
-                        <a href="#" class="btn btn-primary">Listen now.</a>
+                        <a th:if="${i.songs.size()} &gt;= 1"class="btn btn-primary" th:href="@{users/listen-now/(id = *{id})}">Listen now.</a>
+                        <p th:if="${i.songs.size()} == 0" >This user have not uploaded yet.</p>
                     </div>
                 </div>
             </div>

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,11 +42,11 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Set<SongViewModel> getAllSongsByUser(String username) {
+    public List<SongViewModel> getAllSongsByUser(String username) {
         return this.userService.findByUsername(username).getSongs().stream().map(item -> {
             SongViewModel songViewModel = this.modelMapper.map(item, SongViewModel.class);
             return songViewModel;
-        }).collect(Collectors.toSet());
+        }).collect(Collectors.toList());
 
     }
 }

@@ -13,6 +13,7 @@ public interface UserService extends UserDetailsService {
     Boolean isUserAlreadyRegistered(String email,String username);
     List<UserViewModel> findAllUsers();
     void removeShowFromUserById (Long showId, String username);
+    UserViewModel findById(Long id);
 
 
 }

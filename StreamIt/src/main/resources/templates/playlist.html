@@ -14,15 +14,24 @@
     <div class="container justify-content-center float-lg-right">
         <div class=" badge-xl badge-dark mt-2 text-center">
             <div class="font-weight-bold">PLAYLIST NAME</div>
-            <audio src="" controls id="audioPlayer">
+            <audio src="" controls id="audioPlayer" type="audio/mp3">
                 Sorry, your browser doesn't support html5!
             </audio>
             <ul id="playlist">
                 <div class="row">
                     <div class="col-8">
-
-                        <li class="current-song"><a href="/css/01%20Duvet.mp3">Exit the Premises</a></li>
-                        <li><a href="/css/02 Twilight.mp3">Severe Tire Damage</a></li>
+                        <th:block th:if="${uploads}">
+                        <li class="current-song"><a th:href="@{|${firstSong.getSongUrl()}|}" th:text="|*{firstSong.getName()}|">Song name</a></li>
+                            <li th:each="i : ${allUserUploads}" th:object="${i}">
+                                <a th:href="@{|${i.getSongUrl()}|}" th:text="|${i.getName()}|">Song name</a>
+                            </li>
+                        </th:block>
+                        <th:block th:if="${flag}">
+                            <li class="current-song"><a th:href="@{|${firstSong.getSongUrl()}|}" th:text="|*{firstSong.getName()}|">Song name</a></li>
+                            <li th:each="i : ${allUserUploads}" th:object="${i}">
+                                <a th:href="@{|${i.getSongUrl()}|}" th:text="|${i.getName()}|">Song name</a>
+                            </li>
+                        </th:block>
                     </div>
                     <div class="dropdown ">
                         <button class="btn btn-secondary dropdown-toggle p-0 pl-1 pr-1" type="button"

@@ -11,7 +11,8 @@ import java.util.Set;
 public class UserViewModel {
     private Long id;
     private String username;
-    private Set<SongServiceModel> songs;
+    private Set<SongViewModel> songs;
+
 
 
     public UserViewModel() {
@@ -35,11 +36,11 @@ public class UserViewModel {
         this.username = username;
     }
 
-    public Set<SongServiceModel> getSongs() {
+    public Set<SongViewModel> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<SongServiceModel> songs) {
+    public void setSongs(Set<SongViewModel> songs) {
         this.songs = songs;
     }
 

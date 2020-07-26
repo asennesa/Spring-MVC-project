@@ -1,18 +1,12 @@
 package com.streamit.streamitdemo.model.service;
 
-import com.streamit.streamitdemo.model.entity.Playlist;
-import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.HashSet;
 import java.util.Set;
 
 public class SongServiceModel {
     private Long id;
     private String name;
-    private byte[] songFile;
+    private String songUrl;
     private Set<PlaylistServiceModel> playlists;
     private Set<UserServiceModel> users;
 
@@ -38,13 +32,12 @@ public class SongServiceModel {
         this.name = name;
     }
 
-    @NotNull
-    public byte[] getSongFile() {
-        return songFile;
+    public String getSongUrl() {
+        return songUrl;
     }
 
-    public void setSongFile(byte[] songFile) {
-        this.songFile = songFile;
+    public void setSongUrl(String songUrl) {
+        this.songUrl = songUrl;
     }
 
     public Set<PlaylistServiceModel> getPlaylists() {

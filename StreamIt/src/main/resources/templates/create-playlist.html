@@ -14,20 +14,19 @@
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-warning ">Create playlist</span></h1>
     <hr class="hr-3"/>
-    <form class="mx-auto w-25 bg-dark p-3 rounded text-center" action="/" method="">
+    <form class="mx-auto w-25 bg-dark p-3 rounded text-center"    th:object="${playlistBindingModel}" th:action="@{/playlists/create}" th:method="POST">
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">Name</label>
             </div>
-            <input type="text" class="form-control" id="name" name="name" />
-            <small class="text-danger">Incorrect name!</small>
+            <input th:field ="*{name}" th:errorclass="bg-danger" type="text" class="form-control" id="name" name="name" />
+            <small th:each="e : ${#fields.errors('name')}" class="text-danger">Incorrect name!</small>
         </div>
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="description" class="h4 mb-2">Description</label>
             </div>
-            <input type="text" class="form-control" id="description" name="description"/>
-            <small class="text-danger">Incorrect description</small>
+            <input th:field ="*{description}" th:errorclass="bg-danger" type="text" class="form-control" id="description" name="description"/>
         </div>
 
         <div class="button-holder d-flex justify-content-center">

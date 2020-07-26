@@ -3,6 +3,8 @@ package com.streamit.streamitdemo.model.entity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,7 +13,7 @@ public class Playlist {
     private Long id;
     private String name;
     private String description;
-    private Set<Song> songs;
+    private List<Song> songs = new ArrayList<>();
     private User user;
 
 
@@ -40,15 +42,15 @@ public class Playlist {
     }
 
     @ManyToMany(mappedBy = "playlists")
-    public Set<Song> getSongs() {
+    public List<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<Song> songs) {
+    public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
 
-    @ManyToOne
+    @ManyToOne()
     public User getUser() {
         return user;
     }

@@ -27,7 +27,7 @@ public class ShowController {
     }
 
     @GetMapping("/add")
-    public String add(Model model,Principal principal) {
+    public String addShow(Model model,Principal principal) {
         if(!model.containsAttribute("showBindingModel")){
             model.addAttribute("showBindingModel", new ShowBindingModel());
             model.addAttribute("allShows",this.showService.findAllShowsByUser(principal.getName()));
@@ -38,7 +38,7 @@ public class ShowController {
     }
 
     @PostMapping("/add")
-    public ModelAndView addPost(@Valid @ModelAttribute("showBindingModel")
+    public ModelAndView addShowConfirm(@Valid @ModelAttribute("showBindingModel")
                                   ShowBindingModel showBindingModel,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes,ModelAndView modelAndView, Principal principal) {
