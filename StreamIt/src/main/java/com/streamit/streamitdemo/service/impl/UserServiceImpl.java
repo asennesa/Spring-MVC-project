@@ -96,6 +96,14 @@ public class UserServiceImpl implements UserService {
 
 
     }
+    @Override
+    public void removeSongFromUserById(Long songId, String username) {
+        User user = this.userRepository.findUserByUsername(username).orElse(null);
+        user.getSongs().removeIf(song -> song.getId().equals(songId));
+        this.userRepository.saveAndFlush(user);
+
+
+    }
 
     @Override
     public UserViewModel findById(Long id) {

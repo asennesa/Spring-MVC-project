@@ -2,7 +2,6 @@ package com.streamit.streamitdemo.web;
 
 import com.streamit.streamitdemo.model.binding.UserRegisterBindingModel;
 import com.streamit.streamitdemo.model.service.UserServiceModel;
-import com.streamit.streamitdemo.model.view.SongViewModel;
 import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.service.SongService;
 import com.streamit.streamitdemo.service.UserService;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -65,16 +63,16 @@ public class UserController {
 
     @GetMapping("/listen-now")
     @Transactional
-    public ModelAndView listenNow(@RequestParam("id") Long id,ModelAndView modelAndView) {
+    public ModelAndView listenNow(@RequestParam("id") Long id,ModelAndView modelAndView,Principal principal) {
         UserViewModel userViewModel =this.userService.findById(id);
-        List<SongViewModel> userUploads = this.songService.getAllSongsByUser(userViewModel.getUsername());
-        modelAndView.addObject("firstSong", userUploads.iterator().next());
-        userUploads.remove(userUploads.iterator().next());
-        modelAndView.addObject("allUserUploads", userUploads);
-        modelAndView.addObject("uploads",true);
+        modelAndView.addObject("userProfileName",userViewModel.getUsername());
+        modelAndView.addObject("currentLoggedUser",principal.getName());
+//        List<SongViewModel> userUploads = this.songService.getAllSongsByUser(userViewModel.getUsername());
+//        modelAndView.addObject("firstSong", userUploads.iterator().next());
+//        userUploads.remove(userUploads.iterator().next());
+        modelAndView.addObject("allUserUploads", this.songService.getAllSongsByUser(userViewModel.getUsername()));
         modelAndView.setViewName("playlist");
         return modelAndView;
-
     }
 //    @GetMapping("/user-profile/{id}")
 //    public String chosenPlaylist(@PathVariable("id") Long id, Model model) {

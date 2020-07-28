@@ -55,7 +55,7 @@ public class ShowController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id,Principal principal){
         this.showService.delete(id,principal.getName());
-        return "redirect:/";
+        return "redirect:/shows/add";
     }
 
 }

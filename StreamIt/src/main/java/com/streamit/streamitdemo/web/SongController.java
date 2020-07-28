@@ -3,9 +3,7 @@ package com.streamit.streamitdemo.web;
 import com.streamit.streamitdemo.model.binding.SongBindingModel;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
 import com.streamit.streamitdemo.service.SongService;
-import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -73,6 +71,21 @@ public class SongController {
         return "upload-song";
     }
 
+    @GetMapping("/uploads")
+    public String userUploads(Model model, Principal principal) {
+//        List<SongViewModel> userUploads = this.songService.getAllSongsByUser(principal.getName());
+//        model.addAttribute("firstSong", userUploads.iterator().next());
+//        userUploads.remove(userUploads.iterator().next());
+        model.addAttribute("allUserUploads", this.songService.getAllSongsByUser(principal.getName()));
+        return "playlist";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String removeSong(@PathVariable("id") Long id, Principal principal) {
+        this.songService.delete(id,principal.getName());
+        return "redirect:/songs/uploads";
+    }
+
 
     @ExceptionHandler(value = MultipartException.class)
     public ModelAndView handleFileUploadException(MultipartException ex) {
@@ -82,6 +95,7 @@ public class SongController {
 
         return modelAndVew;
     }
+
 
     private void handleMultipartFile(MultipartFile file) {
         String name = file.getOriginalFilename();

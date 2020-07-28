@@ -9,10 +9,17 @@ import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
     void register(UserServiceModel user);
+
     UserServiceModel findByUsername(String username);
-    Boolean isUserAlreadyRegistered(String email,String username);
+
+    Boolean isUserAlreadyRegistered(String email, String username);
+
     List<UserViewModel> findAllUsers();
-    void removeShowFromUserById (Long showId, String username);
+
+    void removeShowFromUserById(Long showId, String username);
+
+    void removeSongFromUserById(Long songId, String username);
+
     UserViewModel findById(Long id);
 
 
