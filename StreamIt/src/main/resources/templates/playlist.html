@@ -1,0 +1,56 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body>
+<div class="bg"></div>
+<header>
+    <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
+        <th:block th:include="~{/fragments/nav}"></th:block>
+    </nav>
+</header>
+<main>
+    <div class="container justify-content-center float-lg-right">
+        <div class=" badge-xl badge-dark mt-2 text-center">
+            <div class="font-weight-bold" th:if="${selectedUserProfileName != currentLoggedUserName}" th:text="|${selectedUserProfileName}|"></div>
+                <div class="row">
+                    <div class="col-12">
+                            <div th:each="i : ${allUserUploads}" th:object="${i}">
+                                <a  th:text="|${i.getName()}|">Song name</a>
+                                <audio th:src="@{|${i.getSongUrl()}|}" controls id="audioPlayer" type="audio/mp3">
+                                    Sorry, your browser doesn't support html5!
+                                </audio>
+                                <a th:unless="${selectedUserProfileName != currentLoggedUserName}"
+                                   class="btn btn-secondary btn-sm m-2"
+                                   th:href="@{/songs/delete/{id}(id=*{id})}">Delete</a>
+                                <div th:if="${selectedUserProfileName != currentLoggedUserName}" class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Add to playlist
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <div th:each="plist : ${loggedUserPlaylists}" th:object="${plist}" >
+                                            <a th:text="|${plist.getName()}|" class="dropdown-item" th:href="@{/playlists/add-song(playListId = ${plist.getId()}, songId = ${i.getId()}) }" >Action</a>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</main>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+<th:block th:include="~{/fragments/popper}"></th:block>
+
+</body>
+</html>
+>

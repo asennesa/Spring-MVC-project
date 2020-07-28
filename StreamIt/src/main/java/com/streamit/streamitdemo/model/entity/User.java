@@ -17,7 +17,7 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String username;
-    private Set<Playlist> playlists = new HashSet<>();
+    private List<Playlist> playlists = new ArrayList<>();
     private List<Song> songs = new ArrayList<>();
     private Set<Show> shows = new HashSet<>();
     private Set<UserRole> roles;
@@ -73,11 +73,11 @@ public class User implements UserDetails {
     }
 
     @OneToMany(mappedBy = "user")
-    public Set<Playlist> getPlaylists() {
+    public List<Playlist> getPlaylists() {
         return playlists;
     }
 
-    public void setPlaylists(Set<Playlist> playlists) {
+    public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
     }
 
@@ -136,6 +136,10 @@ public class User implements UserDetails {
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
+    }
+    public void addPlaylist(Playlist playlist) {
+        this.playlists.add(playlist);
+        playlist.setUser(this);
     }
 
 

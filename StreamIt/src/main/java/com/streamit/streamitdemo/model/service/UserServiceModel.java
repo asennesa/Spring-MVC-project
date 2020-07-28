@@ -17,6 +17,7 @@ public class UserServiceModel {
     private Set<UserRoleServiceModel> roles;
     private List<SongServiceModel> songs;
     private Set<ShowServiceModel> shows;
+    private List<PlaylistServiceModel> playlists;
 
 
     public UserServiceModel() {
@@ -85,5 +86,13 @@ public class UserServiceModel {
 
     public void setShows(Set<ShowServiceModel> shows) {
         this.shows = shows;
+    }
+
+    public List<PlaylistServiceModel> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(List<PlaylistServiceModel> playlists) {
+        this.playlists = playlists;
     }
 }

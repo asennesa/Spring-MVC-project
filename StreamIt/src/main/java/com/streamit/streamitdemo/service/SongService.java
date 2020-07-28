@@ -11,6 +11,6 @@ public interface SongService {
 
     void saveSong(SongServiceModel songServiceModel, String username);
     List<SongViewModel> getAllSongsByUser(String username);
-    SongViewModel findById(Long id);
+    SongServiceModel findById(Long id);
     void delete(Long id, String username);
 }

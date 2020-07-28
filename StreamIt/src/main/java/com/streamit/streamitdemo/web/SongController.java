@@ -73,9 +73,6 @@ public class SongController {
 
     @GetMapping("/uploads")
     public String userUploads(Model model, Principal principal) {
-//        List<SongViewModel> userUploads = this.songService.getAllSongsByUser(principal.getName());
-//        model.addAttribute("firstSong", userUploads.iterator().next());
-//        userUploads.remove(userUploads.iterator().next());
         model.addAttribute("allUserUploads", this.songService.getAllSongsByUser(principal.getName()));
         return "playlist";
     }

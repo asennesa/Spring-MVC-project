@@ -60,16 +60,15 @@ public class UserController {
         return "redirect:login";
 
     }
-
-    @GetMapping("/listen-now")
     @Transactional
+    @GetMapping("/listen-now")
     public ModelAndView listenNow(@RequestParam("id") Long id,ModelAndView modelAndView,Principal principal) {
         UserViewModel userViewModel =this.userService.findById(id);
-        modelAndView.addObject("userProfileName",userViewModel.getUsername());
-        modelAndView.addObject("currentLoggedUser",principal.getName());
-//        List<SongViewModel> userUploads = this.songService.getAllSongsByUser(userViewModel.getUsername());
-//        modelAndView.addObject("firstSong", userUploads.iterator().next());
-//        userUploads.remove(userUploads.iterator().next());
+        modelAndView.addObject("selectedUserProfileName",userViewModel.getUsername());
+        modelAndView.addObject("currentLoggedUserName",principal.getName());
+        UserViewModel loggedUser =this.modelMapper.map(this.userService.findByUsername(principal.getName()),UserViewModel.class);
+        modelAndView.addObject("loggedUserPlaylists",loggedUser.getPlayLists());
+
         modelAndView.addObject("allUserUploads", this.songService.getAllSongsByUser(userViewModel.getUsername()));
         modelAndView.setViewName("playlist");
         return modelAndView;

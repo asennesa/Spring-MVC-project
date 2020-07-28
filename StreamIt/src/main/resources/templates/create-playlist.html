@@ -19,6 +19,7 @@
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">Name</label>
             </div>
+            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
             <input th:field ="*{name}" th:errorclass="bg-danger" type="text" class="form-control" id="name" name="name" />
             <small th:each="e : ${#fields.errors('name')}" class="text-danger">Incorrect name!</small>
         </div>

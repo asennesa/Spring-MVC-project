@@ -1,28 +1,25 @@
-package com.streamit.streamitdemo.model.entity;
+package com.streamit.streamitdemo.model.view;
 
+import com.streamit.streamitdemo.model.entity.Song;
+import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-@Entity
-@Table(name = "playlists")
-public class Playlist {
+public class PlaylistViewModel {
     private Long id;
     private String name;
     private String description;
-    private List<Song> songs = new ArrayList<>();
-    private User user;
+    private List<SongViewModel> songs = new ArrayList<>();
+    private UserViewModel user;
 
 
-    public Playlist() {
+    public PlaylistViewModel() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+
     public Long getId() {
         return id;
     }
@@ -31,7 +28,7 @@ public class Playlist {
         this.id = id;
     }
 
-    @Column(name = "name", nullable = false)
+
     @Length(min = 2, message = "Name length must be at least two characters")
     public String getName() {
         return name;
@@ -41,26 +38,25 @@ public class Playlist {
         this.name = name;
     }
 
-    @ManyToMany()
-    public List<Song> getSongs() {
+
+    public List<SongViewModel> getSongs() {
         return songs;
     }
 
-    public void setSongs(List<Song> songs) {
+    public void setSongs(List<SongViewModel> songs) {
         this.songs = songs;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_user")
-    public User getUser() {
+
+    public UserViewModel getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserViewModel user) {
         this.user = user;
     }
 
-    @Column(name = "description", columnDefinition = "TEXT")
+
     public String getDescription() {
         return description;
     }
@@ -68,11 +64,6 @@ public class Playlist {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public void addSong(Song song) {
-        this.songs.add(song);
-        song.getPlaylists().add(this);
-    }
-
-
 }
+
+

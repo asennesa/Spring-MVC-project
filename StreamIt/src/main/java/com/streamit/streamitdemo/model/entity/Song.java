@@ -6,7 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,7 +17,7 @@ public class Song {
     private Long id;
     private String name;
     private String songUrl;
-    private Set<Playlist> playlists = new HashSet<>();
+    private List<Playlist> playlists = new ArrayList<>();
     private Set<User> users = new HashSet<>();
 
     public Song() {
@@ -52,16 +54,16 @@ public class Song {
         this.songUrl = songUrl;
     }
 
-    @ManyToMany
-    public Set<Playlist> getPlaylists() {
+    @ManyToMany(mappedBy = "songs")
+    public List<Playlist> getPlaylists() {
         return playlists;
     }
 
-    public void setPlaylists(Set<Playlist> playlists) {
+    public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
     }
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany
     @JoinTable(name = "songs_users",
             joinColumns = {@JoinColumn(name = "fk_songs")},
             inverseJoinColumns = {@JoinColumn(name = "fk_users")})

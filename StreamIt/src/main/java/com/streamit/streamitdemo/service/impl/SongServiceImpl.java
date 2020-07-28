@@ -53,10 +53,10 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public SongViewModel findById(Long id) {
+    public SongServiceModel findById(Long id) {
         return this.songRepository.findById(id).map(item -> {
-            SongViewModel songViewModel = this.modelMapper.map(item, SongViewModel.class);
-            return songViewModel;
+            SongServiceModel songServiceModel = this.modelMapper.map(item, SongServiceModel.class);
+            return songServiceModel;
         }).orElse(null);
     }
 
