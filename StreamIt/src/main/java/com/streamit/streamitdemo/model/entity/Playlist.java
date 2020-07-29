@@ -41,7 +41,7 @@ public class Playlist {
         this.name = name;
     }
 
-    @ManyToMany()
+    @ManyToMany
     public List<Song> getSongs() {
         return songs;
     }

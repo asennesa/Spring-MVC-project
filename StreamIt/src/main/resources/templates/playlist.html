@@ -11,40 +11,44 @@
     </nav>
 </header>
 <main>
-    <div class="container justify-content-center float-lg-right">
-        <div class=" badge-xl badge-dark mt-2 text-center">
-            <div class="font-weight-bold" th:if="${selectedUserProfileName != currentLoggedUserName}" th:text="|${selectedUserProfileName}|"></div>
-                <div class="row">
-                    <div class="col-12">
-                            <div th:each="i : ${allUserUploads}" th:object="${i}">
-                                <a  th:text="|${i.getName()}|">Song name</a>
-                                <audio th:src="@{|${i.getSongUrl()}|}" controls id="audioPlayer" type="audio/mp3">
-                                    Sorry, your browser doesn't support html5!
-                                </audio>
-                                <a th:unless="${selectedUserProfileName != currentLoggedUserName}"
-                                   class="btn btn-secondary btn-sm m-2"
-                                   th:href="@{/songs/delete/{id}(id=*{id})}">Delete</a>
-                                <div th:if="${selectedUserProfileName != currentLoggedUserName}" class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Add to playlist
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <div th:each="plist : ${loggedUserPlaylists}" th:object="${plist}" >
-                                            <a th:text="|${plist.getName()}|" class="dropdown-item" th:href="@{/playlists/add-song(playListId = ${plist.getId()}, songId = ${i.getId()}) }" >Action</a>
-                                        </div>
-
-
-                                    </div>
-                                </div>
+    <div class="row p-2 justify-content-center">
+        <div class="col-sm-3">
+            <div class="container bg-dark text-center text-light p-2 m-3  ">
+                <p class="badge bg-warning text-dark"th:if="${selectedUserProfileName != currentLoggedUserName}"
+                     th:text="|${selectedUserProfileName}|"></p>
+                <p th:if="${playlistFlag == true}" class="badge bg-warning text-dark">Playlist</p>
+                <p th:if="${uploadsFlag == true}" class="badge bg-warning text-dark">Uploads</p>
+                <hr class="m-auto"/>
+                <div th:each="i : ${songs}" th:object="${i}">
+                    <p class="text-center m-auto orange-text" th:text="|${i.getName()}|">Song name</p>
+                    <audio class="p-1 m-sm-1" th:src="@{|${i.getSongUrl()}|}" controls id="audioPlayer"
+                           type="audio/mp3">
+                        Sorry, your browser doesn't support html5!
+                    </audio>
+                    <a th:if="${uploadsFlag == true}"
+                       class="btn btn-secondary btn-sm mb-4 "
+                       th:href="@{/songs/delete/{id}(id=*{id})}">Delete</a>
+                    <div th:if="${selectedUserProfileName != currentLoggedUserName}" class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle mt-0 mb-4 " type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add to playlist
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div th:each="plist : ${loggedUserPlaylists}" th:object="${plist}">
+                                <a th:text="|${plist.getName()}|" class="dropdown-item"
+                                   th:href="@{/playlists/add-song(playListId = ${plist.getId()}, songId = ${i.getId()}, userId= ${currentLoggedUserId}) }">Action</a>
                             </div>
-
-
-
+                        </div>
                     </div>
+                    <a th:if="${playlistFlag == true and selectedUserProfileName == currentLoggedUserName}"
+                       class="btn btn-secondary btn-sm mb-4 "
+                       th:href="@{/playlists/remove/{playListId}/{songId}(playListId=${pListId},songId=${i.getId()})}">Remove song from playlist.</a>
                 </div>
-            </ul>
+
+
+                </ul>
+            </div>
         </div>
-    </div>
 </main>
 <footer class="footer bg-dark  py-2">
     <th:block th:include="~{/fragments/footer}"></th:block>

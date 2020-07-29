@@ -42,17 +42,17 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerConfirm(@Valid @ModelAttribute("userRegisterBindingModel")
-                                       UserRegisterBindingModel userRegisterBindingModel,
-                               BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                                          UserRegisterBindingModel userRegisterBindingModel,
+                                  BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("message","Passwords do not match.");
+            redirectAttributes.addFlashAttribute("message", "Passwords do not match.");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             return "redirect:register";
         }
-        if(userService.isUserAlreadyRegistered(userRegisterBindingModel.getEmail(),userRegisterBindingModel.getUsername())){
+        if (userService.isUserAlreadyRegistered(userRegisterBindingModel.getEmail(), userRegisterBindingModel.getUsername())) {
             redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("message","Username and/or email already in use.");
+            redirectAttributes.addFlashAttribute("message", "Username and/or email already in use.");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             return "redirect:register";
         }
@@ -60,16 +60,18 @@ public class UserController {
         return "redirect:login";
 
     }
+
     @Transactional
     @GetMapping("/listen-now")
-    public ModelAndView listenNow(@RequestParam("id") Long id,ModelAndView modelAndView,Principal principal) {
-        UserViewModel userViewModel =this.userService.findById(id);
-        modelAndView.addObject("selectedUserProfileName",userViewModel.getUsername());
-        modelAndView.addObject("currentLoggedUserName",principal.getName());
-        UserViewModel loggedUser =this.modelMapper.map(this.userService.findByUsername(principal.getName()),UserViewModel.class);
-        modelAndView.addObject("loggedUserPlaylists",loggedUser.getPlayLists());
+    public ModelAndView listenNow(@RequestParam("id") Long id, ModelAndView modelAndView, Principal principal) {
+        UserViewModel userViewModel = this.userService.findById(id);
+        modelAndView.addObject("selectedUserProfileName", userViewModel.getUsername());
+        modelAndView.addObject("currentLoggedUserName", principal.getName());
+        modelAndView.addObject("currentLoggedUserId", id);
+        UserViewModel loggedUser = this.modelMapper.map(this.userService.findByUsername(principal.getName()), UserViewModel.class);
+        modelAndView.addObject("loggedUserPlaylists", loggedUser.getPlayLists());
 
-        modelAndView.addObject("allUserUploads", this.songService.getAllSongsByUser(userViewModel.getUsername()));
+        modelAndView.addObject("songs", this.songService.getAllSongsByUser(userViewModel.getUsername()));
         modelAndView.setViewName("playlist");
         return modelAndView;
     }
@@ -79,7 +81,7 @@ public class UserController {
 //        List<SongViewModel> userUploads = this.songService.getAllSongsByUser(userViewModel.getUsername());
 //        model.addAttribute("firstSong", userUploads.iterator().next());
 //        userUploads.remove(userUploads.iterator().next());
-//        model.addAttribute("allUserUploads", userUploads);
+//        model.addAttribute("songs", userUploads);
 //        model.addAttribute("uploads",true);
 //        return "playlist";
 //

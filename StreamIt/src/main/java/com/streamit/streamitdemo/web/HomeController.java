@@ -4,6 +4,7 @@ import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +21,8 @@ public class HomeController {
     }
 
     @GetMapping("/index")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("allUsers",this.userService.findAllUsers());
         return "index";
     }
 
@@ -31,6 +33,7 @@ public class HomeController {
         UserViewModel userViewModel = this.modelMapper
                 .map(this.userService.findByUsername(principal.getName()),UserViewModel.class);
         modelAndView.addObject("loggedUser",userViewModel);
+
 
         modelAndView.addObject("");
         return modelAndView;

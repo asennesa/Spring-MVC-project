@@ -6,32 +6,32 @@
 <body id="index">
 <div class="bg"></div>
 <header>
-     <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
-         <th:block th:include="~{/fragments/nav}"></th:block>
+    <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
+        <th:block th:include="~{/fragments/nav}"></th:block>
 
-     </nav>
+    </nav>
 </header>
 <main>
-    <h1 class="text-center mt-5  "><span class="badge-xl badge-pill badge-secondary p-3 font-weight-bold font-italic">Listen, share, connect.</span></h1>
-    <div class="text-center ">
-        <a href="/users/register" class="btn btn-warning btn-xl p-4 m-3 rounded-bottom rounded-top border font-weight-bold" >Sign up for free</a>
-    </div>
-    <div class="container-fluid">
-        <div class="offers row mx-auto d-flex flex-row justify-content-center">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Artist name</h5>
-                    <p class="card-text">followers count</p>
-                    <a href="#" class="btn btn-primary">Listen now.</a>
-                </div>
-            </div>
+    <h1 class="text-center mt-5  "><span class="badge-xl badge-pill badge-warning p-3 font-weight-bold font-italic">Listen, share, connect.</span>
+    </h1>
+    <div class=" row text-center ">
+        <div class="col">
+            <a href="/users/register"
+               class="btn btn-light btn-xl p-4 mt-4 rounded-bottom rounded-top border font-weight-bold ">Sign up for
+                free</a>
         </div>
     </div>
+    <div class=" row text-center ">
+        <div class="col">
+            <a href="/users/login"
+               class="btn btn-light btn-xl p-4 m-3 rounded-bottom rounded-top border font-weight-bold">Login</a>
+        </div>
+    </div>
+
 </main>
 <footer class="footer bg-dark  py-2">
     <th:block th:include="~{/fragments/footer}"></th:block>
-	</footer>
+</footer>
 
 </body>
 </html>

@@ -5,6 +5,7 @@ import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
 import com.streamit.streamitdemo.model.view.SongViewModel;
 import com.streamit.streamitdemo.repository.SongRepository;
+import com.streamit.streamitdemo.service.PlaylistService;
 import com.streamit.streamitdemo.service.SongService;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -19,11 +20,13 @@ import java.util.stream.Collectors;
 public class SongServiceImpl implements SongService {
     private SongRepository songRepository;
     private UserService userService;
+    private PlaylistService playlistService;
     private ModelMapper modelMapper;
 
-    public SongServiceImpl(SongRepository songRepository, UserService userService, ModelMapper modelMapper) {
+    public SongServiceImpl(SongRepository songRepository, UserService userService, PlaylistService playlistService, ModelMapper modelMapper) {
         this.songRepository = songRepository;
         this.userService = userService;
+        this.playlistService = playlistService;
         this.modelMapper = modelMapper;
     }
 
@@ -66,6 +69,7 @@ public class SongServiceImpl implements SongService {
         Song song = this.songRepository.findById(id).orElse(null);
 
         if (song.getUsers().size() == 1) {
+            this.playlistService.removeSongFromAllPlaylists(id);
             this.songRepository.deleteById(id);
         } else {
             song.getUsers().removeIf(user -> user.getUsername().equals(username));

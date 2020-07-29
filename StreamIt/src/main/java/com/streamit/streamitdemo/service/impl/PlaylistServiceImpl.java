@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class PlaylistServiceImpl implements PlaylistService {
@@ -29,7 +30,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     @Transactional
     public void savePlaylist(PlaylistServiceModel playlistServiceModel, String username) {
-        Playlist playlist = this.modelMapper.map(playlistServiceModel,Playlist.class);
+        Playlist playlist = this.modelMapper.map(playlistServiceModel, Playlist.class);
         User user = this.modelMapper.map(this.userService.findByUsername(username), User.class);
         user.addPlaylist(playlist);
         this.playlistRepository.saveAndFlush(playlist);
@@ -37,8 +38,8 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public PlaylistServiceModel findById(Long id) {
-        return this.playlistRepository.findById(id).map(playlist->{
-            PlaylistServiceModel playlistServiceModel = this.modelMapper.map(playlist,PlaylistServiceModel.class);
+        return this.playlistRepository.findById(id).map(playlist -> {
+            PlaylistServiceModel playlistServiceModel = this.modelMapper.map(playlist, PlaylistServiceModel.class);
             return playlistServiceModel;
         }).orElse(null);
     }
@@ -46,10 +47,28 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     @Transactional
     public void saveSongToPlayList(PlaylistServiceModel playlistServiceModel, SongServiceModel songServiceModel, String username) {
-        Playlist playlist = this.modelMapper.map(playlistServiceModel,Playlist.class);
-        Song song = this.modelMapper.map(songServiceModel,Song.class);
+        Playlist playlist = this.modelMapper.map(playlistServiceModel, Playlist.class);
+        Song song = this.modelMapper.map(songServiceModel, Song.class);
         playlist.addSong(song);
         playlist.setUser(this.modelMapper.map(this.userService.findByUsername(username), User.class));
         this.playlistRepository.saveAndFlush(playlist);
+    }
+
+    @Override
+    @Transactional
+    public void removeById(Long playListId, Long songId) {
+        Playlist playlist = this.playlistRepository.findById(playListId).orElse(null);
+        playlist.getSongs().removeIf(song -> song.getId().equals(songId));
+        this.playlistRepository.saveAndFlush(playlist);
+    }
+
+    @Override
+    public void removeSongFromAllPlaylists(Long id) {
+        List<Playlist> playlists = this.playlistRepository.findAll();
+        playlists.forEach(p->p.getSongs().removeIf(song -> song.getId().equals(id)));
+        this.playlistRepository.saveAll(playlists);
+        this.playlistRepository.flush();
+
+
     }
 }

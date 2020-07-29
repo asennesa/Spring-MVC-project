@@ -73,12 +73,13 @@ public class SongController {
 
     @GetMapping("/uploads")
     public String userUploads(Model model, Principal principal) {
-        model.addAttribute("allUserUploads", this.songService.getAllSongsByUser(principal.getName()));
+        model.addAttribute("songs", this.songService.getAllSongsByUser(principal.getName()));
+        model.addAttribute("uploadsFlag", true);
         return "playlist";
     }
 
     @GetMapping("/delete/{id}")
-    public String removeSong(@PathVariable("id") Long id, Principal principal) {
+    public String deleteUpload(@PathVariable("id") Long id, Principal principal) {
         this.songService.delete(id,principal.getName());
         return "redirect:/songs/uploads";
     }

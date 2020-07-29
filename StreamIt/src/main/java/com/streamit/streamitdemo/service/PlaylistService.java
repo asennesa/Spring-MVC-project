@@ -8,4 +8,8 @@ public interface PlaylistService {
     void savePlaylist(PlaylistServiceModel playlistServiceModel, String username);
     PlaylistServiceModel findById(Long id);
     void saveSongToPlayList(PlaylistServiceModel playlistServiceModel, SongServiceModel songServiceModel, String username);
+
+    void removeById(Long playListId,Long songId);
+
+    void removeSongFromAllPlaylists(Long id);
 }
