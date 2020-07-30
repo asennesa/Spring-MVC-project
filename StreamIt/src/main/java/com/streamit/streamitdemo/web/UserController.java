@@ -1,11 +1,13 @@
 package com.streamit.streamitdemo.web;
 
 import com.streamit.streamitdemo.model.binding.UserRegisterBindingModel;
+import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.service.UserServiceModel;
 import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.service.SongService;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,32 +63,20 @@ public class UserController {
 
     }
 
-    @Transactional
-    @GetMapping("/listen-now")
-    public ModelAndView listenNow(@RequestParam("id") Long id, ModelAndView modelAndView, Principal principal) {
-        UserViewModel userViewModel = this.userService.findById(id);
-        modelAndView.addObject("selectedUserProfileName", userViewModel.getUsername());
-        modelAndView.addObject("currentLoggedUserName", principal.getName());
-        modelAndView.addObject("currentLoggedUserId", id);
-        UserViewModel loggedUser = this.modelMapper.map(this.userService.findByUsername(principal.getName()), UserViewModel.class);
-        modelAndView.addObject("loggedUserPlaylists", loggedUser.getPlayLists());
 
-        modelAndView.addObject("songs", this.songService.getAllSongsByUser(userViewModel.getUsername()));
+    @GetMapping("/listen-now")
+    public ModelAndView listenNow(@RequestParam("id") Long id, ModelAndView modelAndView, Authentication authentication) {
+        User user = (User)authentication.getPrincipal();
+        UserViewModel targetUser = this.userService.findById(id);
+        modelAndView.addObject("selectedUserProfileName", targetUser.getUsername());
+        modelAndView.addObject("currentLoggedUserName", authentication.getName());
+        modelAndView.addObject("currentLoggedUserId", id);
+        UserViewModel loggedUser = this.userService.findById(user.getId());
+        modelAndView.addObject("loggedUserPlaylists", loggedUser.getPlayLists());
+        modelAndView.addObject("songs", this.songService.getAllSongsByUser(targetUser.getUsername()));
         modelAndView.setViewName("playlist");
         return modelAndView;
     }
-//    @GetMapping("/user-profile/{id}")
-//    public String chosenPlaylist(@PathVariable("id") Long id, Model model) {
-//        UserViewModel userViewModel =this.userService.findById(id);
-//        List<SongViewModel> userUploads = this.songService.getAllSongsByUser(userViewModel.getUsername());
-//        model.addAttribute("firstSong", userUploads.iterator().next());
-//        userUploads.remove(userUploads.iterator().next());
-//        model.addAttribute("songs", userUploads);
-//        model.addAttribute("uploads",true);
-//        return "playlist";
-//
-//
-//    }
 
 
     @GetMapping("/login")

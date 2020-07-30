@@ -54,7 +54,7 @@ public class SongServiceImpl implements SongService {
         }).collect(Collectors.toList());
 
     }
-
+    @Transactional
     @Override
     public SongServiceModel findById(Long id) {
         return this.songRepository.findById(id).map(item -> {

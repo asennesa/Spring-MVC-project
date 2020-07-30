@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
 
 
     }
-
+    @Transactional
     @Override
     public UserViewModel findById(Long id) {
         return this.userRepository.findById(id).map(item->{

@@ -1,13 +1,17 @@
 package com.streamit.streamitdemo.web;
 
 import com.streamit.streamitdemo.model.binding.PlaylistBindingModel;
+import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.service.PlaylistServiceModel;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
+import com.streamit.streamitdemo.model.view.PlaylistViewModel;
+import com.streamit.streamitdemo.model.view.SongViewModel;
 import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.service.PlaylistService;
 import com.streamit.streamitdemo.service.SongService;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/playlists")
@@ -38,7 +44,6 @@ public class PlayListController {
     public String createPlayList(Model model) {
         if (!model.containsAttribute("playlistBindingModel")) {
             model.addAttribute("playlistBindingModel", new PlaylistBindingModel());
-//            model.addAttribute("allShows",this.showService.findAllShowsByUser(principal.getName()));
         }
         return "create-playlist";
     }
@@ -59,7 +64,7 @@ public class PlayListController {
 
     }
 
-    @Transactional
+
     @GetMapping("/add-song")
     public ModelAndView listenNow(@RequestParam("playListId") Long playListId, @RequestParam("songId") Long songId, @RequestParam("userId") Long userId, ModelAndView modelAndView, Principal principal) {
         PlaylistServiceModel playlistServiceModel = this.playlistService.findById(playListId);
@@ -68,15 +73,15 @@ public class PlayListController {
         return new ModelAndView("redirect:/users/listen-now/?id=" +userId );
     }
 
-    @Transactional
+
     @GetMapping("/user-playlist")
-    public ModelAndView listenToPlaylist(@RequestParam("playListId") Long id, ModelAndView modelAndView, Principal principal) {
-        //TODO ne vadi playlistite ot bazata a ot lognatiq user vzemi mu vscihki playlistii v edin list i gi vadi ot tam
-        // taka ne davash dostup do vsichki playlisti.
-        UserViewModel userViewModel =this.userService.findByUsername(principal.getName());
-        PlaylistServiceModel playlistServiceModel = this.playlistService.findById(id);
-        modelAndView.addObject("songs", playlistServiceModel.getSongs());
-        modelAndView.addObject("pListId", playlistServiceModel.getId());
+    public ModelAndView listenToPlaylist(@RequestParam("playListId") Long id, ModelAndView modelAndView, Authentication authentication ) {
+        User user = (User)authentication.getPrincipal();
+        UserViewModel userViewModel =this.userService.findById(user.getId());
+        List<PlaylistViewModel> playlistViewModels = userViewModel
+                .getPlayLists().stream().filter(p-> p.getId().equals(id)).collect(Collectors.toList());
+        modelAndView.addObject("songs", playlistViewModels.get(0).getSongs());
+        modelAndView.addObject("pListId", playlistViewModels.get(0).getId());
         modelAndView.addObject("playlistFlag", true);
         modelAndView.setViewName("playlist");
         return modelAndView;

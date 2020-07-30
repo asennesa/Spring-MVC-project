@@ -37,6 +37,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
+    @Transactional
     public PlaylistServiceModel findById(Long id) {
         return this.playlistRepository.findById(id).map(playlist -> {
             PlaylistServiceModel playlistServiceModel = this.modelMapper.map(playlist, PlaylistServiceModel.class);
