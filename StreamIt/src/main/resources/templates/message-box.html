@@ -9,34 +9,41 @@
         <th:block th:include="~{/fragments/nav}"></th:block>
     </nav>
 </header>
-<main >
+<main>
+
     <h1 class="text-center mt-2"><span class="badge badge-warning ">Your messages...</span></h1>
     <hr class="hr-3"/>
-    <form class="mx-auto w-25 bg-dark bg-gray p-3 rounded" action="/" method="">
-        <ul class="list-group">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
+    <div class="container">
+        <div class="row">
+            <a class="btn orange-text bg-blur btn-sm mb-4  " href="/messages/send">Send message</a>
+            <div class="col-md-6">
+                <div class="mx-auto w-30 bg-dark bg-gray p-3 rounded text-center">
+                    <div class="badge badge-warning">Received messages</div>
+                    <ul class="list-group" th:each="i : ${receivedMessages}" th:object="${i}">
+                        <li class="list-group-item"
+                            th:text="|From: ${i.getSender().getUsername()}, Date: ${i.date}, Message: ${i.getMessage()} |">
+                            Cras justo odio
+                        </li>
+                        <a class="btn btn-outline-info btn-sm mb-4 " th:href="@{/messages/delete-received/{id}(id=*{id})}">Delete Message</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mx-auto w-30 bg-dark bg-gray p-3 rounded text-center">
+                    <div class="badge badge-warning">Sent messages</div>
+                    <ul class="list-group" th:each="j : ${sentMessages}" th:object="${j}">
+                        <li class="list-group-item"
+                            th:text="|To: ${j.getReceiver().getUsername()}, Date: ${j.date}, Message: ${j.getMessage()} |">
+                            Cras justo odio
+                        </li>
+                        <a class="btn btn-outline-info btn-sm mb-4 " th:href="@{/messages/delete-sent/{id}(id=*{id})}">Delete Message</a>
+                    </ul>
+                </div>
+            </div>
 
-    </form>
+
+        </div>
+    </div>
 </main>
 <footer class="footer bg-dark  py-2">
     <th:block th:include="~{/fragments/footer}"></th:block>

@@ -22,5 +22,9 @@ public interface UserService extends UserDetailsService {
 
     UserViewModel findById(Long id);
 
+    void removePlaylistFromUserById(Long playlistId, String username);
 
+    boolean isReceiverExisting(String receiverName);
+
+    void removeSentMessageFromUser(Long id,Long messageId);
 }

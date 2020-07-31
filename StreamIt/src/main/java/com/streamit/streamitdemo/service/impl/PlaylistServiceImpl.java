@@ -66,10 +66,17 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     public void removeSongFromAllPlaylists(Long id) {
         List<Playlist> playlists = this.playlistRepository.findAll();
-        playlists.forEach(p->p.getSongs().removeIf(song -> song.getId().equals(id)));
+        playlists.forEach(p -> p.getSongs().removeIf(song -> song.getId().equals(id)));
         this.playlistRepository.saveAll(playlists);
         this.playlistRepository.flush();
 
 
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id, String username) {
+        this.userService.removePlaylistFromUserById(id, username);
+        this.playlistRepository.deleteById(id);
     }
 }

@@ -12,4 +12,6 @@ public interface PlaylistService {
     void removeById(Long playListId,Long songId);
 
     void removeSongFromAllPlaylists(Long id);
+
+    void delete(Long id, String username);
 }

@@ -93,5 +93,12 @@ public class PlayListController {
         return "redirect:/playlists/user-playlist?playListId=" + playListId;
     }
 
+    @GetMapping("/delete/{id}")
+    public String deletePlaylist(@PathVariable("id") Long id, Principal principal) {
+        this.playlistService.delete(id,principal.getName());
+        return "redirect:/home";
+    }
+
+
 
 }

@@ -1,10 +1,12 @@
 package com.streamit.streamitdemo.model.service;
 
+import com.streamit.streamitdemo.model.entity.Message;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +20,8 @@ public class UserServiceModel {
     private List<SongServiceModel> songs;
     private Set<ShowServiceModel> shows;
     private List<PlaylistServiceModel> playlists;
+    private List<MessageServiceModel> messagesReceived = new ArrayList<>();
+    private List<MessageServiceModel> messagesSent = new ArrayList<>();
 
 
     public UserServiceModel() {
@@ -94,5 +98,21 @@ public class UserServiceModel {
 
     public void setPlaylists(List<PlaylistServiceModel> playlists) {
         this.playlists = playlists;
+    }
+
+    public List<MessageServiceModel> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(List<MessageServiceModel> messagesReceived) {
+        this.messagesReceived = messagesReceived;
+    }
+
+    public List<MessageServiceModel> getMessagesSent() {
+        return messagesSent;
+    }
+
+    public void setMessagesSent(List<MessageServiceModel> messagesSent) {
+        this.messagesSent = messagesSent;
     }
 }

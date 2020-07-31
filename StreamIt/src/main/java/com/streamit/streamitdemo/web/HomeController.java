@@ -1,8 +1,10 @@
 package com.streamit.streamitdemo.web;
 
+import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +29,11 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public ModelAndView home(ModelAndView modelAndView, Principal principal) {
+    public ModelAndView home(ModelAndView modelAndView, Authentication authentication) {
         modelAndView.setViewName("home");
         modelAndView.addObject("allUsers",this.userService.findAllUsers());
-        UserViewModel userViewModel = this.modelMapper
-                .map(this.userService.findByUsername(principal.getName()),UserViewModel.class);
+        User user = (User)authentication.getPrincipal();
+        UserViewModel userViewModel =this.userService.findById(user.getId());
         modelAndView.addObject("loggedUser",userViewModel);
 
 

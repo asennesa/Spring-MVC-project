@@ -68,9 +68,5 @@ public class ShowServiceImpl implements ShowService {
 
         }
 
-
-        //TODO: Get current user from user service if show.getUsers() is empty
-        // deleted show by id else remove only user from show;
-
     }
 }

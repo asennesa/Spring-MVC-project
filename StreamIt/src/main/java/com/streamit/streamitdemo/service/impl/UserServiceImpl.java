@@ -1,16 +1,15 @@
 package com.streamit.streamitdemo.service.impl;
 
-import com.streamit.streamitdemo.model.entity.Show;
-import com.streamit.streamitdemo.model.entity.Song;
+import com.streamit.streamitdemo.model.entity.Message;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.entity.UserRole;
 import com.streamit.streamitdemo.model.service.UserServiceModel;
 import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.repository.UserRepository;
+import com.streamit.streamitdemo.service.MessageService;
 import com.streamit.streamitdemo.service.UserRoleService;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -93,9 +92,8 @@ public class UserServiceImpl implements UserService {
         User user = this.userRepository.findUserByUsername(username).orElse(null);
         user.getShows().removeIf(show -> show.getId().equals(showId));
         this.userRepository.saveAndFlush(user);
-
-
     }
+
     @Override
     public void removeSongFromUserById(Long songId, String username) {
         User user = this.userRepository.findUserByUsername(username).orElse(null);
@@ -104,12 +102,34 @@ public class UserServiceImpl implements UserService {
 
 
     }
-    @Transactional
+
     @Override
+    @Transactional
     public UserViewModel findById(Long id) {
-        return this.userRepository.findById(id).map(item->{
-            UserViewModel userViewModel = this.modelMapper.map(item,UserViewModel.class);
+        return this.userRepository.findById(id).map(item -> {
+            UserViewModel userViewModel = this.modelMapper.map(item, UserViewModel.class);
             return userViewModel;
         }).orElse(null);
+    }
+
+    @Override
+    public void removePlaylistFromUserById(Long playlistId, String username) {
+        User user = this.userRepository.findUserByUsername(username).orElse(null);
+        user.getPlaylists().removeIf(playlist -> playlist.getId().equals(playlistId));
+        this.userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public boolean isReceiverExisting(String receiverName) {
+        return this.userRepository.findUserByUsername(receiverName).isPresent();
+    }
+
+    @Override
+    public void removeSentMessageFromUser(Long id,Long messageId) {
+        User user = this.userRepository.findById(id).orElse(null);
+        user.getMessagesSent().removeIf(msg -> msg.getId().equals(messageId));
+        this.userRepository.saveAndFlush(user);
+
+
     }
 }

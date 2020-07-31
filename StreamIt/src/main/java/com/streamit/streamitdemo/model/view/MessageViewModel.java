@@ -1,30 +1,23 @@
-package com.streamit.streamitdemo.model.entity;
+package com.streamit.streamitdemo.model.view;
 
+import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "messages")
-public class Message {
-
-
+public class MessageViewModel {
     private Long id;
-    private User sender;
-    private User receiver;
+    private UserViewModel sender;
+    private UserViewModel receiver;
     private String message;
     private LocalDateTime date;
 
-    public Message() {
+    public MessageViewModel() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+
     public Long getId() {
         return id;
     }
@@ -33,27 +26,23 @@ public class Message {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_sender",nullable = true)
-    public User getSender() {
+
+    public UserViewModel getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
+    public void setSender(UserViewModel sender) {
         this.sender = sender;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_receiver",nullable = true)
-    public User getReceiver() {
+    public UserViewModel getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
+    public void setReceiver(UserViewModel receiver) {
         this.receiver = receiver;
     }
 
-    @Column(name = "message", nullable = false,columnDefinition = "TEXT")
     @Length(min = 2, message = "Message length must be at least 2 characters")
     public String getMessage() {
         return message;
@@ -64,7 +53,6 @@ public class Message {
     }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @Column(name = "date")
     public LocalDateTime getDate() {
         return date;
     }

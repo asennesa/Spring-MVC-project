@@ -45,8 +45,10 @@
                        th:href="@{/playlists/remove/{playListId}/{songId}(playListId=${pListId},songId=${i.getId()})}">Remove song from playlist.</a>
                 </div>
 
-
                 </ul>
+                <a th:if="${playlistFlag == true}"
+                   class="btn btn-danger btn-sm mb-4  "
+                   th:href="@{/playlists/delete/{id}(id=*{pListId})}">Delete Playlist</a>
             </div>
         </div>
 </main>
