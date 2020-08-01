@@ -1,5 +1,6 @@
 package com.streamit.streamitdemo.web;
 
+import com.streamit.streamitdemo.model.binding.RoleAddBindingModel;
 import com.streamit.streamitdemo.service.UserRoleService;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/roles")
+@RequestMapping("/admin")
 public class RoleController {
 
     private final UserRoleService userRoleService;
@@ -24,6 +25,21 @@ public class RoleController {
         this.userRoleService = userRoleService;
         this.userService = userService;
         this.modelMapper = modelMapper;
+    }
+
+    @GetMapping("/roles")
+    public ModelAndView add(ModelAndView modelAndView) {
+        modelAndView.addObject("usernames",this.userService.findAllUsernames());
+        modelAndView.setViewName("admin-page");
+        return modelAndView;
+    }
+
+    @PostMapping("/roles")
+    public String addConfirm(@Valid @ModelAttribute("roleAddBindingModel") RoleAddBindingModel roleAddBindingModel){
+        this.userService.addRoleToUser(roleAddBindingModel.getUsername(),roleAddBindingModel.getRole());
+
+        return "redirect:/";
+
     }
 
 

@@ -125,9 +125,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeSentMessageFromUser(Long id,Long messageId) {
+    public void removeSentMessageFromUser(Long id, Long messageId) {
         User user = this.userRepository.findById(id).orElse(null);
         user.getMessagesSent().removeIf(msg -> msg.getId().equals(messageId));
+        this.userRepository.saveAndFlush(user);
+
+
+    }
+
+    @Override
+    public List<String> findAllUsernames() {
+        return this.userRepository.findAll()
+                .stream().map(user -> user.getUsername()).collect(Collectors.toList());
+    }
+
+    @Override
+    public void addRoleToUser(String username, String role) {
+        User user = this.userRepository.findUserByUsername(username).orElse(null);
+        UserRole userRole = this.modelMapper.map(this.userRoleService.findRoleByName(role), UserRole.class);
+        user.getRoles().clear();
+        user.getRoles().add(userRole);
         this.userRepository.saveAndFlush(user);
 
 

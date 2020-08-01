@@ -27,4 +27,8 @@ public interface UserService extends UserDetailsService {
     boolean isReceiverExisting(String receiverName);
 
     void removeSentMessageFromUser(Long id,Long messageId);
+
+    List<String> findAllUsernames();
+
+    void addRoleToUser(String username, String role);
 }

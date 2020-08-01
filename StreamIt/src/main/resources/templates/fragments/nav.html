@@ -11,37 +11,44 @@
     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
         <ul class="navbar-nav mr-3">
 
-            <th:block sec:authorize="isAnonymous()" >
-            <li class="nav-item col-md-4">
-                <a class="nav-link orange-text active h5" href="/users/login">Login</a>
-            </li>
-            <li  class="nav-item col-md-4">
-                <a class="nav-link orange-text active h5" href="/users/register">Register</a>
-            </li>
+            <th:block sec:authorize="isAnonymous()">
+                <li class="nav-item col-md-4">
+                    <a class="nav-link orange-text active h5" href="/users/login">Login</a>
+                </li>
+                <li class="nav-item col-md-4">
+                    <a class="nav-link orange-text active h5" href="/users/register">Register</a>
+                </li>
             </th:block>
-            <th:block sec:authorize="isAuthenticated()" >
-            <li class="nav-item">
-                <a class="nav-link orange-text active h6" href="/songs/upload">Upload</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link orange-text active h6" href="/shows/add">Add Show</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link orange-text active h6" href="/playlists/create">Create Playlist</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link orange-text active h6" href="/messages/inbox">Messages</a>
-            </li>
-            <li class="nav-item">
-                <form th:action="@{/logout}" th:method="post">
-                    <button class="btn btn-warning">Logout</button>
-                </form>
-            </li>
+
+            <th:block sec:authorize="isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link orange-text active h6" href="/home">Welcome <span class="text-white" th:text="${#authentication.getPrincipal().getUsername()}"></span></a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                    <a class="nav-link orange-text active h6" href="/admin/roles">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link orange-text active h6" href="/songs/upload">Upload</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link orange-text active h6" href="/shows/add">Add Show</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link orange-text active h6" href="/playlists/create">Create Playlist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link orange-text active h6" href="/messages/inbox">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" th:method="post">
+                        <button class="btn btn-warning">Logout</button>
+                    </form>
+                </li>
             </th:block>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
 </th:block>
