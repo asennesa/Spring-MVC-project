@@ -38,7 +38,7 @@ public class RoleController {
     public String addConfirm(@Valid @ModelAttribute("roleAddBindingModel") RoleAddBindingModel roleAddBindingModel){
         this.userService.addRoleToUser(roleAddBindingModel.getUsername(),roleAddBindingModel.getRole());
 
-        return "redirect:/";
+        return "redirect:/home";
 
     }
 
