@@ -13,8 +13,11 @@
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-warning ">Upload song</span></h1>
     <hr class="hr-3"/>
+
     <form class="mx-auto w-25 bg-dark p-3 rounded text-center" th:object="${songBindingModel}"
           th:action="@{/songs/upload}" th:method="post" enctype="multipart/form-data">
+        <p class="alert alert-primary  text-center" th:if="${uploadLimit}">You have reached the upload limit of 3.</p>
+        <div th:unless="${uploadLimit}">
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">Song name</label>
@@ -37,7 +40,7 @@
             <button type="submit" class="btn btn-secondary text-white mb-3" value="Upload">Upload</button>
         </div>
 
-
+        </div>
     </form>
 </main>
 <footer class="footer bg-dark  py-2">

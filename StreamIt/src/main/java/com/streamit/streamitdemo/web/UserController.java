@@ -7,6 +7,7 @@ import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.service.SongService;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.transaction.Transactional;
+
 import javax.validation.Valid;
-import java.security.Principal;
+
 
 @Controller
 @RequestMapping("/users")

@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
-
 @Controller
 public class HomeController {
     private final UserService userService;
@@ -20,6 +18,7 @@ public class HomeController {
     public HomeController(UserService userService, ModelMapper modelMapper) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+
     }
 
     @GetMapping("/index")
@@ -35,9 +34,6 @@ public class HomeController {
         User user = (User)authentication.getPrincipal();
         UserViewModel userViewModel =this.userService.findById(user.getId());
         modelAndView.addObject("loggedUser",userViewModel);
-
-
-        modelAndView.addObject("");
         return modelAndView;
     }
 }
