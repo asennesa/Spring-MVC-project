@@ -1,9 +1,11 @@
 package com.streamit.streamitdemo.service;
 
+import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.service.UserServiceModel;
 import com.streamit.streamitdemo.model.view.UserViewModel;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,4 +33,7 @@ public interface UserService extends UserDetailsService {
     List<String> findAllUsernames();
 
     void addRoleToUser(String username, String role);
+
+
+
 }

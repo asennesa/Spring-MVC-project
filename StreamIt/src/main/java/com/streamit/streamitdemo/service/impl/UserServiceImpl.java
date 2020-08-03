@@ -147,6 +147,6 @@ public class UserServiceImpl implements UserService {
         user.getRoles().add(userRole);
         this.userRepository.saveAndFlush(user);
 
-
     }
+
 }

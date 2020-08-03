@@ -11,5 +11,7 @@ public interface ShowService {
     void saveShow(ShowServiceModel showServiceModel, String username);
     List<ShowViewModel> findAllShowsByUser(String username);
     void delete(Long id,String username);
+    void deleteAllPastShows();
+
 
 }

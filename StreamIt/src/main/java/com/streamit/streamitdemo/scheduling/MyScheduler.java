@@ -17,8 +17,9 @@ public class MyScheduler {
 
 
     @Scheduled(cron = "0 0 0 * * ?")
-    public void restartRegisterCounter() {
-           //Todo remove shows with date before today localdate time now.
+    public void deleteAllPastShows() {
+        this.showService.deleteAllPastShows();
+
     }
 
 }

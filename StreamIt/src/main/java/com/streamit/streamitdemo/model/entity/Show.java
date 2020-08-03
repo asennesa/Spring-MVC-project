@@ -64,7 +64,7 @@ public class Show {
         this.venueAddress = venueAddress;
     }
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany()
     @JoinTable(name = "shows_users",
             joinColumns = {@JoinColumn(name = "fk_shows")},
             inverseJoinColumns = {@JoinColumn(name = "fk_users")})

@@ -1,5 +1,6 @@
 package com.streamit.streamitdemo.service.impl;
 
+import com.streamit.streamitdemo.model.entity.Playlist;
 import com.streamit.streamitdemo.model.entity.Show;
 import com.streamit.streamitdemo.model.entity.Song;
 import com.streamit.streamitdemo.model.entity.User;
@@ -15,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,6 +69,16 @@ public class ShowServiceImpl implements ShowService {
             this.showRepository.saveAndFlush(show);
 
         }
+
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllPastShows() {
+        List<Show> pastShows = this.showRepository.findAll()
+                .stream().filter(show->show.getDate().isBefore(LocalDateTime.now())).collect(Collectors.toList());
+        this.showRepository.deleteInBatch(pastShows);
+
 
     }
 }
