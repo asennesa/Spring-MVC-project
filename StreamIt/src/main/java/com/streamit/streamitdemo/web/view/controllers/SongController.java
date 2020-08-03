@@ -1,4 +1,4 @@
-package com.streamit.streamitdemo.web;
+package com.streamit.streamitdemo.web.view.controllers;
 
 import com.streamit.streamitdemo.model.binding.SongBindingModel;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
@@ -80,13 +80,22 @@ public class SongController {
 
     @GetMapping("/delete/{id}")
     public String deleteUpload(@PathVariable("id") Long id, Principal principal) {
-        this.songService.delete(id,principal.getName());
+        this.songService.delete(id, principal.getName());
         return "redirect:/songs/uploads";
     }
 
 
     @ExceptionHandler(value = MultipartException.class)
     public ModelAndView handleFileUploadException(MultipartException ex) {
+
+        ModelAndView modelAndVew = new ModelAndView("error");
+        modelAndVew.addObject("errorMsg", ex.getMessage());
+
+        return modelAndVew;
+    }
+
+    @ExceptionHandler(value = NullPointerException.class)
+    public ModelAndView handleNullPointerException(NullPointerException ex) {
 
         ModelAndView modelAndVew = new ModelAndView("error");
         modelAndVew.addObject("errorMsg", ex.getMessage());

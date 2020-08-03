@@ -1,11 +1,9 @@
 package com.streamit.streamitdemo.model.service;
 
-import com.streamit.streamitdemo.model.entity.Song;
-import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
-import java.util.Set;
+
 
 public class PlaylistServiceModel {
     private Long id;

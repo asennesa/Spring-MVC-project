@@ -20,6 +20,6 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public UserRoleServiceModel findRoleByName(String name) {
-        return this.modelMapper.map(userRoleRepository.findByName(name),UserRoleServiceModel.class);
+        return this.modelMapper.map(userRoleRepository.findByName(name), UserRoleServiceModel.class);
     }
 }

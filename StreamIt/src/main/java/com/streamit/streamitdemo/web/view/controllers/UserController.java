@@ -1,4 +1,4 @@
-package com.streamit.streamitdemo.web;
+package com.streamit.streamitdemo.web.view.controllers;
 
 import com.streamit.streamitdemo.model.binding.UserRegisterBindingModel;
 import com.streamit.streamitdemo.model.entity.User;
@@ -67,7 +67,7 @@ public class UserController {
 
     @GetMapping("/listen-now")
     public ModelAndView listenNow(@RequestParam("id") Long id, ModelAndView modelAndView, Authentication authentication) {
-        User user = (User)authentication.getPrincipal();
+        User user = (User) authentication.getPrincipal();
         UserViewModel targetUser = this.userService.findById(id);
         modelAndView.addObject("selectedUserProfileName", targetUser.getUsername());
         modelAndView.addObject("currentLoggedUserName", authentication.getName());

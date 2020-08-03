@@ -1,10 +1,7 @@
 package com.streamit.streamitdemo.model.service;
 
-import com.streamit.streamitdemo.model.entity.Message;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.Collection;

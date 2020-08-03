@@ -3,8 +3,6 @@ package com.streamit.streamitdemo.model.service;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 public class UserRoleServiceModel implements GrantedAuthority {
     private Long id;

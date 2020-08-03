@@ -1,4 +1,4 @@
-package com.streamit.streamitdemo.web;
+package com.streamit.streamitdemo.web.view.controllers;
 
 import com.streamit.streamitdemo.model.binding.RoleAddBindingModel;
 import com.streamit.streamitdemo.service.UserRoleService;
@@ -29,20 +29,18 @@ public class RoleController {
 
     @GetMapping("/roles")
     public ModelAndView add(ModelAndView modelAndView) {
-        modelAndView.addObject("usernames",this.userService.findAllUsernames());
+        modelAndView.addObject("usernames", this.userService.findAllUsernames());
         modelAndView.setViewName("admin-page");
         return modelAndView;
     }
 
     @PostMapping("/roles")
-    public String addConfirm(@Valid @ModelAttribute("roleAddBindingModel") RoleAddBindingModel roleAddBindingModel){
-        this.userService.addRoleToUser(roleAddBindingModel.getUsername(),roleAddBindingModel.getRole());
+    public String addConfirm(@Valid @ModelAttribute("roleAddBindingModel") RoleAddBindingModel roleAddBindingModel) {
+        this.userService.addRoleToUser(roleAddBindingModel.getUsername(), roleAddBindingModel.getRole());
 
         return "redirect:/home";
 
     }
-
-
 
 
 }

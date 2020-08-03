@@ -1,13 +1,12 @@
 package com.streamit.streamitdemo.model.binding;
 
-import com.streamit.streamitdemo.model.entity.User;
+
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDateTime;
-import java.util.Set;
+
 
 public class ShowBindingModel {
     private String showName;

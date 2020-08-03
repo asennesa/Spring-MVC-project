@@ -1,11 +1,7 @@
 package com.streamit.streamitdemo.model.binding;
 
-import com.streamit.streamitdemo.model.entity.Song;
-import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
-import java.util.Set;
 
 public class PlaylistBindingModel {
 

@@ -1,4 +1,4 @@
-package com.streamit.streamitdemo.web;
+package com.streamit.streamitdemo.web.view.controllers;
 
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.view.UserViewModel;
@@ -23,17 +23,17 @@ public class HomeController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        model.addAttribute("allUsers",this.userService.findAllUsers());
+        model.addAttribute("allUsers", this.userService.findAllUsers());
         return "index";
     }
 
     @GetMapping("/home")
     public ModelAndView home(ModelAndView modelAndView, Authentication authentication) {
         modelAndView.setViewName("home");
-        modelAndView.addObject("allUsers",this.userService.findAllUsers());
-        User user = (User)authentication.getPrincipal();
-        UserViewModel userViewModel =this.userService.findById(user.getId());
-        modelAndView.addObject("loggedUser",userViewModel);
+        modelAndView.addObject("allUsers", this.userService.findAllUsers());
+        User user = (User) authentication.getPrincipal();
+        UserViewModel userViewModel = this.userService.findById(user.getId());
+        modelAndView.addObject("loggedUser", userViewModel);
         return modelAndView;
     }
 }

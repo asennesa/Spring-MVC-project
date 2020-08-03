@@ -8,6 +8,7 @@ public class RoleAddBindingModel {
 
     public RoleAddBindingModel() {
     }
+
     @Length(min = 2, message = "Username length must be at least two characters")
     public String getUsername() {
         return username;

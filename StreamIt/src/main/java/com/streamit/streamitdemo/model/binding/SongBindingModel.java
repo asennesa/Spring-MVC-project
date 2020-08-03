@@ -2,7 +2,6 @@ package com.streamit.streamitdemo.model.binding;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotNull;
 
 public class SongBindingModel {
     private String name;

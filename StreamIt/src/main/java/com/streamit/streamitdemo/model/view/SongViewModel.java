@@ -1,11 +1,7 @@
 package com.streamit.streamitdemo.model.view;
 
-import com.streamit.streamitdemo.model.entity.Playlist;
-import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
-import java.util.Set;
 
 public class SongViewModel {
     private Long id;

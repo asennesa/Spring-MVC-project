@@ -1,11 +1,10 @@
-package com.streamit.streamitdemo.web;
+package com.streamit.streamitdemo.web.view.controllers;
 
 import com.streamit.streamitdemo.model.binding.PlaylistBindingModel;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.service.PlaylistServiceModel;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
 import com.streamit.streamitdemo.model.view.PlaylistViewModel;
-import com.streamit.streamitdemo.model.view.SongViewModel;
 import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.service.PlaylistService;
 import com.streamit.streamitdemo.service.SongService;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
@@ -70,16 +68,16 @@ public class PlayListController {
         PlaylistServiceModel playlistServiceModel = this.playlistService.findById(playListId);
         SongServiceModel songServiceModel = this.songService.findById(songId);
         this.playlistService.saveSongToPlayList(playlistServiceModel, songServiceModel, principal.getName());
-        return new ModelAndView("redirect:/users/listen-now/?id=" +userId );
+        return new ModelAndView("redirect:/users/listen-now/?id=" + userId);
     }
 
 
     @GetMapping("/user-playlist")
-    public ModelAndView listenToPlaylist(@RequestParam("playListId") Long id, ModelAndView modelAndView, Authentication authentication ) {
-        User user = (User)authentication.getPrincipal();
-        UserViewModel userViewModel =this.userService.findById(user.getId());
+    public ModelAndView listenToPlaylist(@RequestParam("playListId") Long id, ModelAndView modelAndView, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        UserViewModel userViewModel = this.userService.findById(user.getId());
         List<PlaylistViewModel> playlistViewModels = userViewModel
-                .getPlayLists().stream().filter(p-> p.getId().equals(id)).collect(Collectors.toList());
+                .getPlayLists().stream().filter(p -> p.getId().equals(id)).collect(Collectors.toList());
         modelAndView.addObject("songs", playlistViewModels.get(0).getSongs());
         modelAndView.addObject("pListId", playlistViewModels.get(0).getId());
         modelAndView.addObject("playlistFlag", true);
@@ -95,10 +93,9 @@ public class PlayListController {
 
     @GetMapping("/delete/{id}")
     public String deletePlaylist(@PathVariable("id") Long id, Principal principal) {
-        this.playlistService.delete(id,principal.getName());
+        this.playlistService.delete(id, principal.getName());
         return "redirect:/home";
     }
-
 
 
 }

@@ -5,7 +5,6 @@ import com.streamit.streamitdemo.model.entity.Song;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.service.PlaylistServiceModel;
 import com.streamit.streamitdemo.model.service.SongServiceModel;
-import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.repository.PlaylistRepository;
 import com.streamit.streamitdemo.service.PlaylistService;
 import com.streamit.streamitdemo.service.UserService;

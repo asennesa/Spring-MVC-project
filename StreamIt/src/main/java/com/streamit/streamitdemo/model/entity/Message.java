@@ -4,8 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -34,7 +33,7 @@ public class Message {
     }
 
     @ManyToOne
-    @JoinColumn(name = "fk_sender",nullable = true)
+    @JoinColumn(name = "fk_sender", nullable = true)
     public User getSender() {
         return sender;
     }
@@ -44,7 +43,7 @@ public class Message {
     }
 
     @ManyToOne
-    @JoinColumn(name = "fk_receiver",nullable = true)
+    @JoinColumn(name = "fk_receiver", nullable = true)
     public User getReceiver() {
         return receiver;
     }
@@ -53,7 +52,7 @@ public class Message {
         this.receiver = receiver;
     }
 
-    @Column(name = "message", nullable = false,columnDefinition = "TEXT")
+    @Column(name = "message", nullable = false, columnDefinition = "TEXT")
     @Length(min = 2, message = "Message length must be at least 2 characters")
     public String getMessage() {
         return message;

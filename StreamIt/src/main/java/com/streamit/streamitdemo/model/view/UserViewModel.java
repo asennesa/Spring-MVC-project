@@ -1,16 +1,9 @@
 package com.streamit.streamitdemo.model.view;
 
-import com.streamit.streamitdemo.model.entity.Message;
-import com.streamit.streamitdemo.model.entity.Playlist;
-import com.streamit.streamitdemo.model.service.SongServiceModel;
-import com.streamit.streamitdemo.model.service.UserRoleServiceModel;
 import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.Email;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+
 
 public class UserViewModel {
     private Long id;

@@ -1,10 +1,7 @@
 package com.streamit.streamitdemo.model.view;
 
-import com.streamit.streamitdemo.model.entity.Song;
-import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

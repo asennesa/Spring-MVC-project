@@ -1,10 +1,8 @@
 package com.streamit.streamitdemo.model.view;
 
-import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 public class MessageViewModel {

@@ -1,6 +1,5 @@
 package com.streamit.streamitdemo.config;
 
-
 import com.streamit.streamitdemo.interceptors.UploadLimitInterceptor;
 import com.streamit.streamitdemo.interceptors.UploadTimeLogInterceptor;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     private UploadTimeLogInterceptor uploadTimeLogInterceptor;
     private UploadLimitInterceptor uploadLimitInterceptor;
-
 
 
     public WebConfig(UploadTimeLogInterceptor uploadTimeLogInterceptor, UploadLimitInterceptor uploadLimitInterceptor) {

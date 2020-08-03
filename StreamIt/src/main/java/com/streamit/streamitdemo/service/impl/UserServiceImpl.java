@@ -1,12 +1,10 @@
 package com.streamit.streamitdemo.service.impl;
 
-import com.streamit.streamitdemo.model.entity.Message;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.entity.UserRole;
 import com.streamit.streamitdemo.model.service.UserServiceModel;
 import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.repository.UserRepository;
-import com.streamit.streamitdemo.service.MessageService;
 import com.streamit.streamitdemo.service.UserRoleService;
 import com.streamit.streamitdemo.service.UserService;
 import org.modelmapper.ModelMapper;

@@ -137,6 +137,7 @@ public class User implements UserDetails {
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
     }
+
     public void addPlaylist(Playlist playlist) {
         this.playlists.add(playlist);
         playlist.setUser(this);

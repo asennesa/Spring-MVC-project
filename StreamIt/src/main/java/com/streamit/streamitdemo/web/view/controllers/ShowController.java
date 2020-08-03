@@ -1,4 +1,4 @@
-package com.streamit.streamitdemo.web;
+package com.streamit.streamitdemo.web.view.controllers;
 
 import com.streamit.streamitdemo.model.binding.ShowBindingModel;
 import com.streamit.streamitdemo.model.service.ShowServiceModel;
@@ -27,10 +27,10 @@ public class ShowController {
     }
 
     @GetMapping("/add")
-    public String addShow(Model model,Principal principal) {
-        if(!model.containsAttribute("showBindingModel")){
+    public String addShow(Model model, Principal principal) {
+        if (!model.containsAttribute("showBindingModel")) {
             model.addAttribute("showBindingModel", new ShowBindingModel());
-            model.addAttribute("allShows",this.showService.findAllShowsByUser(principal.getName()));
+            model.addAttribute("allShows", this.showService.findAllShowsByUser(principal.getName()));
 
         }
 
@@ -39,22 +39,22 @@ public class ShowController {
 
     @PostMapping("/add")
     public ModelAndView addShowConfirm(@Valid @ModelAttribute("showBindingModel")
-                                  ShowBindingModel showBindingModel,
-                                BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes,ModelAndView modelAndView, Principal principal) {
+                                               ShowBindingModel showBindingModel,
+                                       BindingResult bindingResult,
+                                       RedirectAttributes redirectAttributes, ModelAndView modelAndView, Principal principal) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("showBindingModel", showBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.showBindingModel", bindingResult);
             return new ModelAndView("redirect:add");
         }
-        this.showService.saveShow(this.modelMapper.map(showBindingModel, ShowServiceModel.class),principal.getName());
+        this.showService.saveShow(this.modelMapper.map(showBindingModel, ShowServiceModel.class), principal.getName());
         return new ModelAndView("redirect:add");
 
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id,Principal principal){
-        this.showService.delete(id,principal.getName());
+    public String delete(@PathVariable("id") Long id, Principal principal) {
+        this.showService.delete(id, principal.getName());
         return "redirect:/shows/add";
     }
 

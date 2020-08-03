@@ -1,10 +1,8 @@
 package com.streamit.streamitdemo.model.service;
 
-import com.streamit.streamitdemo.model.entity.User;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDateTime;
 import java.util.Set;

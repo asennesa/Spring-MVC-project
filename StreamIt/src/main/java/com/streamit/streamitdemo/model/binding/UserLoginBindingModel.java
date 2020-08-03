@@ -8,6 +8,7 @@ public class UserLoginBindingModel {
 
     public UserLoginBindingModel() {
     }
+
     @Length(min = 2, message = "Username length must be at least two characters")
     public String getUsername() {
         return username;
@@ -16,6 +17,7 @@ public class UserLoginBindingModel {
     public void setUsername(String username) {
         this.username = username;
     }
+
     @Length(min = 2, message = "Password length must be at least two characters")
     public String getPassword() {
         return password;

@@ -4,7 +4,6 @@ import com.streamit.streamitdemo.service.ShowService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class MyScheduler {

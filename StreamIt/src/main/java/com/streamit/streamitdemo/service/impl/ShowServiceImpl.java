@@ -1,14 +1,9 @@
 package com.streamit.streamitdemo.service.impl;
 
-import com.streamit.streamitdemo.model.entity.Playlist;
 import com.streamit.streamitdemo.model.entity.Show;
-import com.streamit.streamitdemo.model.entity.Song;
 import com.streamit.streamitdemo.model.entity.User;
 import com.streamit.streamitdemo.model.service.ShowServiceModel;
-import com.streamit.streamitdemo.model.service.SongServiceModel;
-import com.streamit.streamitdemo.model.service.UserServiceModel;
 import com.streamit.streamitdemo.model.view.ShowViewModel;
-import com.streamit.streamitdemo.model.view.UserViewModel;
 import com.streamit.streamitdemo.repository.ShowRepository;
 import com.streamit.streamitdemo.service.ShowService;
 import com.streamit.streamitdemo.service.UserService;
@@ -65,7 +60,7 @@ public class ShowServiceImpl implements ShowService {
             this.showRepository.deleteById(id);
         } else {
             show.getUsers().removeIf(user -> user.getUsername().equals(username));
-            this.userService.removeShowFromUserById(id,username);
+            this.userService.removeShowFromUserById(id, username);
             this.showRepository.saveAndFlush(show);
 
         }
@@ -76,7 +71,7 @@ public class ShowServiceImpl implements ShowService {
     @Transactional
     public void deleteAllPastShows() {
         List<Show> pastShows = this.showRepository.findAll()
-                .stream().filter(show->show.getDate().isBefore(LocalDateTime.now())).collect(Collectors.toList());
+                .stream().filter(show -> show.getDate().isBefore(LocalDateTime.now())).collect(Collectors.toList());
         this.showRepository.deleteInBatch(pastShows);
 
 
