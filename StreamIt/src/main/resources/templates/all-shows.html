@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{/fragments/head}"></th:block>
 </head>
@@ -10,17 +9,21 @@
         <th:block th:include="~{/fragments/nav}"></th:block>
     </nav>
 </header>
-<main>
-    <div class="container bg-gray p-3 rounded  text-center mt-5">
-        <img src="/img/404.png" class="img-fluid m-4" alt="404 not found.">
-        <hr class="my-3"/>
-        <p class="h4">The page you are looking for does not exist. How you got here is a mystery.</p>
-        <hr class="my-3"/>
+<main >
+    <h1 class="text-center mt-2"><span class="badge badge-warning ">All shows</span></h1>
+    <hr class="hr-3"/>
+    <div class="container-fluid text-center bg-dark text-white">
 
+    <ul class="text-center" id="shows-list">
+
+    </ul>
     </div>
+
 </main>
+
 <footer class="footer bg-dark  py-2">
     <th:block th:include="~{/fragments/footer}"></th:block>
 </footer>
+<script src="/js/shows-all.js"></script>
 </body>
 </html>

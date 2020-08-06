@@ -2,6 +2,7 @@ package com.streamit.streamitdemo.service.impl;
 
 import com.streamit.streamitdemo.model.entity.Show;
 import com.streamit.streamitdemo.model.entity.User;
+import com.streamit.streamitdemo.model.responsemodels.ShowResponseModel;
 import com.streamit.streamitdemo.model.service.ShowServiceModel;
 import com.streamit.streamitdemo.model.view.ShowViewModel;
 import com.streamit.streamitdemo.repository.ShowRepository;
@@ -75,5 +76,13 @@ public class ShowServiceImpl implements ShowService {
         this.showRepository.deleteInBatch(pastShows);
 
 
+    }
+
+    @Override
+    public List<ShowResponseModel> findAllShows() {
+         List<ShowResponseModel> allShows=  this.showRepository.findAll().stream()
+                .map(show->this.modelMapper.map(show,ShowResponseModel.class))
+                .collect(Collectors.toList());
+         return allShows;
     }
 }

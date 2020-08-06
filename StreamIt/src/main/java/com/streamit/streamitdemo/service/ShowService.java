@@ -1,5 +1,6 @@
 package com.streamit.streamitdemo.service;
 
+import com.streamit.streamitdemo.model.responsemodels.ShowResponseModel;
 import com.streamit.streamitdemo.model.service.ShowServiceModel;
 import com.streamit.streamitdemo.model.view.ShowViewModel;
 
@@ -15,6 +16,8 @@ public interface ShowService {
     void delete(Long id, String username);
 
     void deleteAllPastShows();
+
+    List<ShowResponseModel> findAllShows();
 
 
 }

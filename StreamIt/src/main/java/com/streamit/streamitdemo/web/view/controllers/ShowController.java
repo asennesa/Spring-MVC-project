@@ -58,4 +58,9 @@ public class ShowController {
         return "redirect:/shows/add";
     }
 
+    @GetMapping("/all")
+    public String login() {
+        return "all-shows";
+    }
+
 }
