@@ -38,6 +38,7 @@
                                 <a th:text="|${plist.getName()}|" class="dropdown-item"
                                    th:href="@{/playlists/add-song(playListId = ${plist.getId()}, songId = ${i.getId()}, userId= ${currentLoggedUserId}) }">Action</a>
                             </div>
+                            <a class="dropdown-item" href="/playlists/create">Create playlist</a>
                         </div>
                     </div>
                     <a th:if="${playlistFlag == true and selectedUserProfileName == currentLoggedUserName}"

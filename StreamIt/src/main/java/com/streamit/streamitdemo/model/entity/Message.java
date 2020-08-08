@@ -15,6 +15,8 @@ public class Message {
     private Long id;
     private User sender;
     private User receiver;
+    private String senderName;
+    private String receiverName;
     private String message;
     private LocalDateTime date;
 
@@ -50,6 +52,24 @@ public class Message {
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+    }
+
+    @Column(name = "sender_name")
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    @Column(name = "receiver_name")
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
     @Column(name = "message", nullable = false, columnDefinition = "TEXT")

@@ -21,7 +21,7 @@
                     <div class="badge badge-warning">Received messages</div>
                     <ul class="list-group" th:each="i : ${receivedMessages}" th:object="${i}">
                         <li class="list-group-item"
-                            th:text="|From: ${i.getSender().getUsername()}, Date: ${i.date}, Message: ${i.getMessage()} |">
+                            th:text="|From: ${i.getSenderName()}, Date: ${i.date}, Message: ${i.getMessage()} |">
                             Cras justo odio
                         </li>
                         <a class="btn btn-outline-info btn-sm mb-4 " th:href="@{/messages/delete-received/{id}(id=*{id})}">Delete Message</a>
@@ -33,7 +33,7 @@
                     <div class="badge badge-warning">Sent messages</div>
                     <ul class="list-group" th:each="j : ${sentMessages}" th:object="${j}">
                         <li class="list-group-item"
-                            th:text="|To: ${j.getReceiver().getUsername()}, Date: ${j.date}, Message: ${j.getMessage()} |">
+                            th:text="|To: ${j.getReceiverName()}, Date: ${j.date}, Message: ${j.getMessage()} |">
                             Cras justo odio
                         </li>
                         <a class="btn btn-outline-info btn-sm mb-4 " th:href="@{/messages/delete-sent/{id}(id=*{id})}">Delete Message</a>

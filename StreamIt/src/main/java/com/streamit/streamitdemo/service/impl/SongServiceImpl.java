@@ -81,4 +81,9 @@ public class SongServiceImpl implements SongService {
         }
 
     }
+
+    @Override
+    public boolean isNewUpload(String name) {
+        return  songRepository.findByName(name).isEmpty();
+    }
 }

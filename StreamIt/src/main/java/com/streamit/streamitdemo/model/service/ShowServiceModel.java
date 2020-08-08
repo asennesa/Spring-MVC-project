@@ -18,6 +18,14 @@ public class ShowServiceModel {
     public ShowServiceModel() {
     }
 
+    public ShowServiceModel(Long id, String showName, LocalDateTime date, String venueAddress, Set<UserServiceModel> users) {
+        this.id = id;
+        this.showName = showName;
+        this.date = date;
+        this.venueAddress = venueAddress;
+        this.users = users;
+    }
+
     public Long getId() {
         return id;
     }

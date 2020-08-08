@@ -27,35 +27,41 @@
                                 <a th:text="|${plist.getName()}|" class="dropdown-item"
                                    th:href="@{/playlists/user-playlist(playListId = ${plist.getId()}) }">Action</a>
                             </div>
+                            <a class="dropdown-item" href="/playlists/create">Create playlist</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-112">
-            <div class="card text-center bg-secondary">
-                <div class="card-body ">
-                    <h5 class="card-title">Your sounds...</h5>
-                    <p class="card-text">All of your uploads in one place.</p>
+            <div class="col-sm-112">
+                <div class="card text-center bg-secondary">
+                    <div class="card-body ">
+                        <h5 class="card-title">Your sounds...</h5>
+                        <p class="card-text">All of your uploads in one place.</p>
 
-                    <a th:if="${loggedUser.getSongs().size() &gt; 0 }" href="/songs/uploads" class="btn btn-primary">Go!</a>
-                    <p th:if="${loggedUser.getSongs().size() == 0 }" > You have not uploaded yet.</p>
+                        <a th:if="${loggedUser.getSongs().size() &gt; 0 }" href="/songs/uploads"
+                           class="btn btn-primary">Go!</a>
+                        <p th:if="${loggedUser.getSongs().size() == 0 }"> You have not uploaded yet.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid text-center m-2 bg-dark text-white ">Listen to all the other registered artists!</div>
-        <div class="container-fluid m-2">
-            <div class="row mx-auto d-flex flex-row justify-content-center m-2">
-                <div th:unless="${loggedUser.username == i.username}"  th:each="i : ${allUsers}" th:object="${i}" class="card bg-warning m-2" style="width: 12rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="|*{username}|">Artist name</h5>
-                        <p class="card-text" th:text="|Songs: *{songs.size()}|">songs count</p>
-                        <a th:if="${i.songs.size()} &gt; 0"class="btn btn-primary" th:href="@{users/listen-now/(id = *{id})}">Listen now.</a>
-                        <p th:if="${i.songs.size()} == 0" >This user has not uploaded yet.</p>
+            <div class="container-fluid text-center m-2 bg-dark text-white ">Listen to all the other registered
+                artists!
+            </div>
+            <div class="container-fluid m-2">
+                <div class="row mx-auto d-flex flex-row justify-content-center m-2">
+                    <div th:unless="${loggedUser.username == i.username}" th:each="i : ${allUsers}" th:object="${i}"
+                         class="card bg-warning m-2" style="width: 12rem;">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="|*{username}|">Artist name</h5>
+                            <p class="card-text" th:text="|Songs: *{songs.size()}|">songs count</p>
+                            <a th:if="${i.songs.size()} &gt; 0" class="btn btn-primary"
+                               th:href="@{users/listen-now/(id = *{id})}">Listen now.</a>
+                            <p th:if="${i.songs.size()} == 0">This user has not uploaded yet.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 

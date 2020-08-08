@@ -9,6 +9,8 @@ public class MessageViewModel {
     private Long id;
     private UserViewModel sender;
     private UserViewModel receiver;
+    private String senderName;
+    private String receiverName;
     private String message;
     private LocalDateTime date;
 
@@ -39,6 +41,22 @@ public class MessageViewModel {
 
     public void setReceiver(UserViewModel receiver) {
         this.receiver = receiver;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
     @Length(min = 2, message = "Message length must be at least 2 characters")

@@ -10,6 +10,8 @@ public class MessageServiceModel {
     private Long id;
     private User sender;
     private User receiver;
+    private String senderName;
+    private String receiverName;
     private String message;
     private LocalDateTime date;
 
@@ -41,6 +43,22 @@ public class MessageServiceModel {
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
 

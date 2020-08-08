@@ -33,9 +33,11 @@ public class MessageServiceImpl implements MessageService {
         User receiver = this.modelMapper.map(this.userService.findByUsername(receiverName), User.class);
         receiver.getMessagesReceived().add(message);
         message.setReceiver(receiver);
+        message.setReceiverName(receiverName);
         User sender = this.modelMapper.map(this.userService.findByUsername(username), User.class);
         sender.getMessagesSent().add(message);
         message.setSender(sender);
+        message.setSenderName(sender.getUsername());
         this.messageRepository.saveAndFlush(message);
 
     }

@@ -15,4 +15,6 @@ public interface SongService {
     SongServiceModel findById(Long id);
 
     void delete(Long id, String username);
+
+    boolean isNewUpload(String name);
 }

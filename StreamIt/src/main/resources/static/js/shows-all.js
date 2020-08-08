@@ -5,6 +5,12 @@ const URLS = {
 fetch(URLS.shows)
     .then(response => response.json())
     .then(shows => {
+        if(shows.length===0){
+            let listItem = document.createElement('li');
+            listItem.innerHTML="No events registered."
+            document.getElementById('shows-list')
+                .appendChild(listItem);
+        }
         shows.forEach(show => {
             let myJSON = JSON.stringify(show);
             let aShow = JSON.parse(myJSON);

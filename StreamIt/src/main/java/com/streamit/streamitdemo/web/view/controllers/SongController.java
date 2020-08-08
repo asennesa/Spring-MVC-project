@@ -45,17 +45,18 @@ public class SongController {
     public String uploadSong(@Valid @ModelAttribute("songBindingModel") SongBindingModel songBindingModel, final BindingResult binding,
                              RedirectAttributes redirectAttributes, Principal principal,
                              @RequestParam(name = "file") MultipartFile file) {
-
         try {
             if (file != null && !file.isEmpty() && file.getOriginalFilename().length() > 0) {
                 if (Pattern.matches(".+\\.(mp3)", file.getOriginalFilename())) {
                     if (file.getSize() > 31457280) {
                         redirectAttributes.addFlashAttribute("message", "File too large!\r\nMaximum file size = 30 Megabytes.");
                     } else {
-                        handleMultipartFile(file);
-                        songBindingModel.setSongUrl("/uploads" + "/" + file.getOriginalFilename());
-                        this.songService.saveSong(this.modelMapper.map(songBindingModel, SongServiceModel.class), principal.getName());
-                        redirectAttributes.addFlashAttribute("message", "Upload successful!");
+                        if (songService.isNewUpload(songBindingModel.getName())) {
+                            handleMultipartFile(file);
+                            redirectAttributes.addFlashAttribute("message", "Upload successful!");
+                            songBindingModel.setSongUrl("/uploads" + "/" + file.getOriginalFilename());
+                            this.songService.saveSong(this.modelMapper.map(songBindingModel, SongServiceModel.class), principal.getName());
+                        }
                     }
                 } else {
                     redirectAttributes.addFlashAttribute("message", "Submit file [.mp3] format.");
@@ -63,6 +64,16 @@ public class SongController {
                 redirectAttributes.addFlashAttribute("songBindingModel", songBindingModel);
                 redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.songBindingModel", binding);
                 return "redirect:upload";
+            } else {
+                if (!songService.isNewUpload(songBindingModel.getName())) {
+                    this.songService.saveSong(this.modelMapper.map(songBindingModel, SongServiceModel.class), principal.getName());
+                    redirectAttributes.addFlashAttribute("message", "Song with name " + songBindingModel.getName() + " reposted to your profile!");
+                    redirectAttributes.addFlashAttribute("songBindingModel", songBindingModel);
+                    redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.songBindingModel", binding);
+                    return "redirect:upload";
+                }else{
+                    redirectAttributes.addFlashAttribute("message", "Song with name " + songBindingModel.getName() + " dose not exist.");
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();

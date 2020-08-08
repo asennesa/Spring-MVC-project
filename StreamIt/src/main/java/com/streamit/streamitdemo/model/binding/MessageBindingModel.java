@@ -11,7 +11,7 @@ public class MessageBindingModel {
     public MessageBindingModel() {
     }
 
-    @Length(min = 2, message = "Message length must be at least 2 characters")
+    @Length(min = 2, message = "Receiver length must be at least 2 characters")
     public String getReceiver() {
         return receiver;
     }

@@ -75,7 +75,6 @@ public class ShowServiceImpl implements ShowService {
                 .stream().filter(show -> show.getDate().isBefore(LocalDateTime.now())).collect(Collectors.toList());
         this.showRepository.deleteInBatch(pastShows);
 
-
     }
 
     @Override
